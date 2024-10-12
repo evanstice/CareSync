@@ -1,31 +1,49 @@
+body{
+    background-color:lightgray;
+}
+
 h1 {
     background-color:aquamarine;
     font-size:400%;
 }
 
-h2
-{
+h2{
+    text-align: center;
     background-color:mediumseagreen;
     font-size: 300%;
 }
 
-h3
-{
-    background-color:mediumseagreen;
-    font-size:300%;
+h3{
+    text-align: center;
+    font-size: 200%;
 }
 
-h4
+button.right
 {
-    background-color:mediumseagreen;
-    font-size:300%
+    float:right
 }
 
-div {
-    width: 300px;
-    border: 15px solid green;
-    padding: 50px;
-    margin: 20px;
+button.signIn{
+    width: 250px;
+    height: 25px;
+    margin: auto;
+}
+
+textarea{
+    max-lines: 1;
+    width: 250px;
+    height: 25px;
+    margin: auto;
+    resize:none
+}
+
+div.login{
+    background-color:white;
+    width:250px;
+    height:350px;
+    border:30px solid mediumseagreen;
+    padding:50px;
+    margin:auto;
 }
 
 a{
