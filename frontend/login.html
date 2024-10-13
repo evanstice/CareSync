@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="Style.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
 </head>
 <title>Care Sync</title>
 </head>
@@ -12,12 +13,14 @@
 
 <div class="login">
     <h3>Sign In</h3>
-    <textarea name="Username" rows="1" placeholder="Username" maxlength="20"></textarea>
-    <br><br><br>
-    <textarea name="Password" rows="1" placeholder="Password" maxlength="20"></textarea>
-    <br><br>
-    <button class="signIn">Sign In</button>
-    <br><br><br><br>
+    <form>
+        <label for="username"></label>
+        <input type="text" id="username" name="username" placeholder="Username"><br><br>
+        <label for="password" placeholder="Password"></label>
+        <input type="text" id="password" name="password" placeholder="Password"><br><br>
+        <input type="button" value="Sign in" onclick="signInClick()">
+        <br><br><br>
+    </form>
     <a href="create account.html" style="font-size:13px">Create Account</a>
 </div>
 
