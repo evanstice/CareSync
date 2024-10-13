@@ -18,15 +18,15 @@ h3{
     font-size: 200%;
 }
 
-button.right
-{
-    float:right
-}
-
-button.signIn{
+input{
     width: 250px;
     height: 25px;
     margin: auto;
+}
+
+button.right
+{
+    float:right
 }
 
 textarea{
