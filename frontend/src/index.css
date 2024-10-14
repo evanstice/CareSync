@@ -1,0 +1,60 @@
+/* Sets background color*/
+body{
+  background-color:lightgray;
+}
+
+/* Sets background color and size of CareSync title */
+h1 {
+  background-color:aquamarine;
+  font-size:400%;
+}
+
+/* Sets background color and alignment of hyperlinks */
+h2{
+  text-align: center;
+  background-color:mediumseagreen;
+  font-size: 300%;
+}
+
+h3{
+  text-align: center;
+  font-size:200%;
+}
+
+/* Sets color of hyperlinks to black */
+a{
+  color: black;
+}
+
+/* Sets the width and height of the input boxes */
+input{
+  width: 250px;
+  height: 25px;
+  margin: auto;
+}
+
+/* Moves a button to the right of the page */
+button.right
+{
+  float:right
+}
+
+/* Define parameters for login section */
+div.login{
+  background-color:white;
+  width:250px;
+  height:350px;
+  border:30px solid mediumseagreen;
+  padding:50px;
+  margin:auto;
+}
+
+/* Define parameters for create account section */
+div.create{
+  background-color:white;
+  width:250px;
+  height:450px;
+  border:30px solid mediumseagreen;
+  padding:50px;
+  margin:auto;
+}
