@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<title>Care Sync</title>
+</head>
+<body>
+
+<h1 id="hello">CareSync</h1><br>
+
+<!-- Usese same format as login -->
+<div class="create">
+    <h3>Create Account</h3>
+    <!-- Form to get user input -->
+    <form>
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" placeholder="Username" maxlength="20">
+        <p>Max 20 characters</p>
+        <label for="password" placeholder="Password">Password:</label><br>
+        <input type="password" id="password" name="password" placeholder="Password" maxlength="20"><br>
+        <p>Password must have 1 Captial Letter and 1 number. Max 20 characters</p><br>
+        <input type="button" value="Create Account" onclick="createAccountClick()">
+        <br><br>
+        <p id="message" style="color:red"></p>
+    </form>
+</div>
+
+</body>
+</html>
