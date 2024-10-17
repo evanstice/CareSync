@@ -1,0 +1,68 @@
+/* Sets background color*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  
+}
+
+body{
+  background-color:lightgray;
+}
+
+/* Sets background color and size of CareSync title */
+h1 {
+  background-color:aquamarine;
+  font-size:400%;
+}
+
+/* Sets background color and alignment of hyperlinks */
+h2{
+  text-align: center;
+  background-color:mediumseagreen;
+  font-size: 300%;
+}
+
+h3{
+  text-align: center;
+  font-size:200%;
+}
+
+/* Sets color of hyperlinks to black */
+a{
+  color: black;
+}
+
+/* Sets the width and height of the input boxes */
+input{
+  width: 250px;
+  height: 25px;
+  margin: auto;
+}
+
+/* Moves a button to the right of the page */
+button.right
+{
+  float:right
+}
+
+/* Define parameters for login section */
+div.login{
+  background-color:white;
+  width:250px;
+  height:350px;
+  border:30px solid mediumseagreen;
+  padding:50px;
+  margin:auto;
+}
+
+/* Define parameters for create account section */
+div.create{
+  background-color:white;
+  width:250px;
+  height:450px;
+  border:30px solid mediumseagreen;
+  padding:50px;
+  margin:auto;
+}
