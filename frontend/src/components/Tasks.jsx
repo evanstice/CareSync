@@ -1,4 +1,5 @@
-function Tasks() {
+import { useState } from "react";
+export const Tasks = () => {
     const styles = {
         body: {
             backgroundColor: 'lightgray',
@@ -13,16 +14,14 @@ function Tasks() {
             margin: 'auto',
             padding: '20px'
         }
-        };
+    };
+
 
     return (
         <div style={styles.body}>
             <div style={styles.container}>
             <h1 style={styles.h1}>CareSync</h1>
-            {/* Add more content here */}
             </div>
         </div>
     );
 }
-
-export default Tasks;
