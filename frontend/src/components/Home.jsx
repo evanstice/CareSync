@@ -40,20 +40,15 @@ const Home = () => {
     <NavBar />
     
     <div style={styles.container}>
-      <button style={styles.button} onClick={handleLogout}>Logout</button>
-      <h1 style={styles.h1}>CareSync</h1>
 
       <h2 style={styles.h2}>
-        <Link to="/all-tasks" style={styles.link}>All Tasks</Link>
+        <Link to="/Tasks" style={styles.link}>All Tasks</Link>
       </h2>
 
       <h2 style={styles.h2}>
-        <Link to="/medication-tracker" style={styles.link}>Medication Tracker</Link>
+        <Link to="/Medications" style={styles.link}>Medication Tracker</Link>
       </h2>
 
-      <h2 style={styles.h2}>
-        <Link to="/task-manager" style={styles.link}>Task Manager</Link>
-      </h2>
     </div>
     </>
   );

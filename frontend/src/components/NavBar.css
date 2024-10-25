@@ -1,17 +1,42 @@
 .navbar {
     background-color: #679ac6;
     height: 80px;
+    width: auto;
     display: flex;
-    justify-content: start;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav-title {
+    font-weight: 600;
+    text-decoration: none;
+    color: azure;
+    font-size: 3rem;
+    flex: 1;
+    text-align: center;
 }
 
 .menu-bars {
-    padding-top: 0.5rem;
-    margin-left: 2rem;
     font-size: 2.5rem;
     background-color: none;
     color: azure;
+    flex: 1;
+    text-align: left;
+    padding-top: 0.8rem;
+}
+
+.log-out-button {
+    font-size: 2.5rem;
+    background-color: none;
+    color: azure;
+    flex: 1;
+    text-align: right;
+    padding-top: 0.8rem;
+}
+
+.close-button {
+    padding-left: 20px;
 }
 
 .nav-menu {
