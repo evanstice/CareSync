@@ -1,4 +1,5 @@
 import { useState } from "react";
+import NavBar from './NavBar';
 export const Tasks = () => {
     const styles = {
         body: {
@@ -18,10 +19,13 @@ export const Tasks = () => {
 
 
     return (
+        <>
+        <NavBar />
         <div style={styles.body}>
             <div style={styles.container}>
             <h1 style={styles.h1}>CareSync</h1>
             </div>
         </div>
+        </>
     );
 }
