@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,6 +36,9 @@ const Home = () => {
   };
 
   return (
+    <>
+    <NavBar />
+    
     <div style={styles.container}>
 
       <h2 style={styles.h2}>
@@ -46,6 +50,7 @@ const Home = () => {
       </h2>
 
     </div>
+    </>
   );
 };
 

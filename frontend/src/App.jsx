@@ -1,3 +1,4 @@
+
 import { Tasks } from './components/Tasks';
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
@@ -10,9 +11,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <Router>
-      <NavBar />
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="" element={<Login />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/home" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />
@@ -20,5 +20,5 @@ function App() {
     </Router>
   );
 }
-
+// hi
 export default App;
