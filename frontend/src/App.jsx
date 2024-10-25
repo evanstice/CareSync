@@ -17,9 +17,6 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />
       </Routes>
-      <div>
-        <Login />
-      </div>
     </Router>
   );
 }
