@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import NavBar from './NavBar';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,6 +36,9 @@ const Home = () => {
   };
 
   return (
+    <>
+    <NavBar />
+    
     <div style={styles.container}>
       <button style={styles.button} onClick={handleLogout}>Logout</button>
       <h1 style={styles.h1}>CareSync</h1>
@@ -51,6 +55,7 @@ const Home = () => {
         <Link to="/task-manager" style={styles.link}>Task Manager</Link>
       </h2>
     </div>
+    </>
   );
 };
 
