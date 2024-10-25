@@ -48,7 +48,6 @@ const Login = () => {
 
   return (
     <div>
-      <h1 style={styles.h1}>CareSync</h1>
       <div style={styles.container}>
         <h3>Sign In</h3>
         <form>

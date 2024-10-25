@@ -52,7 +52,6 @@ const CreateAccount = () => {
 
   return (
     <div>
-      <h1 style={styles.h1}>CareSync</h1>
       <div style={styles.container}>
         <h3>Create Account</h3>
         <form>

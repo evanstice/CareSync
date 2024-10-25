@@ -1,4 +1,4 @@
-import Tasks from './components/Tasks';
+import { Tasks } from './components/Tasks';
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import Home from './components/Home';
