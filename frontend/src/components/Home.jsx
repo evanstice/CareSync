@@ -37,19 +37,7 @@ const Home = () => {
 
   return (
     <>
-    <NavBar />
     
-    <div style={styles.container}>
-
-      <h2 style={styles.h2}>
-        <Link to="/Tasks" style={styles.link}>All Tasks</Link>
-      </h2>
-
-      <h2 style={styles.h2}>
-        <Link to="/Medications" style={styles.link}>Medication Tracker</Link>
-      </h2>
-
-    </div>
     </>
   );
 };
