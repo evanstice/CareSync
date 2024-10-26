@@ -8,9 +8,13 @@ const taskSchema = new mongoose.Schema({
     familyMember: {
         type: String
     },
+    needByDate: {
+        type: Date
+    },
 }, {
     timestamps: true
 });
 
+// Creates Tasks collection in MongoDB
 const Task = mongoose.model("Task", taskSchema);
 export default Task;
