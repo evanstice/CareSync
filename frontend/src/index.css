@@ -71,5 +71,11 @@ div.create{
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 40px;
+  padding-top: 120px;
+}
+
+.navbar-wrapper {
+  position: absolute;
+  top: 0;
+  width: 100%;
 }

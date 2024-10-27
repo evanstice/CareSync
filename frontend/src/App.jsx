@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <Router>
-      <NavBar />
       <div className='task-wrapper'>
         <Tasks />
       </div>
@@ -20,6 +19,9 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/tasks" element={<Tasks />} />
       </Routes>
+      <div className='navbar-wrapper'>
+        <NavBar />
+      </div>
     </Router>
   );
 }
