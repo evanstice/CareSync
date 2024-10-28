@@ -9,11 +9,14 @@ const CreateAccount = () => {
 
   const createAccountClick = () => {
     // Password validation: must contain a number and a capital letter
-    if (!username) {
-      setMessage('Invalid username');
+    if (!username && !(password.match(/[0-9]/) && password.match(/[A-Z]/))) {
+      setMessage('Invalid username and password');
+    } else if (!username) {
+      setMessage('Invalid username') ;
     } else if (!(password.match(/[0-9]/) && password.match(/[A-Z]/))) {
       setMessage('Password needs one number and one capital letter.');
     } else {
+      // Add database implementation
       // Navigate to home on successful account creation
       navigate('/home');
     }
