@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 export const createTask = async(req, res) => {
     const task = req.body;
+    console.log("Request body:", req.body)
     if (!task.task) {
         return res.status(400).json({success: false, message: "No task entered"});
     }

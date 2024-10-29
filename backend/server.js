@@ -2,11 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import taskRoutes from "./routes/taskRoutes.js";
+import cors from "cors"
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000
 
+app.use(cors())
 app.use(express.json()); // permits use of .json in 'req' below
 
 const connectDB = async() => {
@@ -20,7 +22,7 @@ const connectDB = async() => {
     }
 }
 
-app.use("/api", taskRoutes)
+app.use("/api/tasks", taskRoutes)
 
 app.listen(PORT, () => {
     connectDB();

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import NavBar from './NavBar';
+import NavBar from '../components/Navbar/NavBar';
 
 const Home = () => {
   const navigate = useNavigate();
