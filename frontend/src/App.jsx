@@ -9,9 +9,6 @@ function App() {
   return (
     <Router>
       <NavBar />
-      <div className='task-wrapper'>
-        <TasksPage />
-      </div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/create-account" element={<CreateAccount />} />
