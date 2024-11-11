@@ -8,19 +8,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <Router>
-      <NavBar />
-      <div className='task-wrapper'>
-        <TasksPage />
-      </div>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/tasks" element={<TasksPage />} />
       </Routes>
-      <div className='navbar-wrapper'>
-        <NavBar />
-      </div>
     </Router>
   );
 }
