@@ -1,6 +1,7 @@
 import Tasks from '../components/Tasks/Tasks'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import NavBar from '../components/Navbar/NavBar';
 
 export default function TasksPage() {
     const [tasks, setTasks] = useState([])
@@ -64,6 +65,9 @@ export default function TasksPage() {
             updateTask={updateTask}
             deleteTask={deleteTask}
         />
+        <div className='navbar-wrapper'>
+        <NavBar />
+      </div>
     </>
     )
 }
