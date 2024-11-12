@@ -54,7 +54,7 @@ const CreateAccount = () => {
   };
 
   return (
-    <div>
+    <>
       <div style={styles.container}>
         <h3>Create Account</h3>
         <form>
@@ -83,7 +83,7 @@ const CreateAccount = () => {
           <p style={styles.message}>{message}</p>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 
