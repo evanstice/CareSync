@@ -17,5 +17,5 @@ const UserSchema = new mongoose.Schema({
 });
 
 // Creates Tasks collection in MongoDB
-const Task = mongoose.model("Task", taskSchema);
-export default Task;
+const Task = mongoose.model("User", userSchema);
+export default User;
