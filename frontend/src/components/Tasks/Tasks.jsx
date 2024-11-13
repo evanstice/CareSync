@@ -63,6 +63,7 @@ export default function Tasks( { tasks, createTask, updateTask, deleteTask }) {
                     deleteTask={deleteTask}
                 />
             </div>
+            <OptionsMenu/ >
         </div>
     )
 }
