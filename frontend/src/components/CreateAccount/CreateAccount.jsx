@@ -1,7 +1,11 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
-const CreateAccount = () => {
+export default function CreateAccount() {
+  const [newUser, setNewUser] = useState("")
+
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -18,9 +22,22 @@ const CreateAccount = () => {
     } else {
       // Add database implementation
       // Navigate to home on successful account creation
-      navigate('/home');
+      
+      //navigate('/home');
+
+      createUser({username, password})
     }
   };
+
+  //POST (createUser)
+  function createUser(userData) {
+    axios
+        .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
+        .then((res) => {
+            setNewUser((currUser) => [...currUser, res.data.data])
+        })
+        .catch((error) => console.error('Error creating user:', error.message))
+}
 
   const styles = {
     container: {
@@ -85,6 +102,5 @@ const CreateAccount = () => {
       </div>
     </>
   );
-};
 
-export default CreateAccount;
+};

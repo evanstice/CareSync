@@ -1,5 +1,5 @@
 {/*
-    Copider from taskController.js
+    Copied from taskController.js
     */}
 
 
@@ -11,11 +11,11 @@ import mongoose from "mongoose";
 export const createUser = async(req, res) => {
     const user = req.body;
     console.log("Request body:", req.body)
-    if (!user.username && !user.password) {
+    if (!user.username) {
         return res.status(400).json({success: false, message: "No username and password"});
     }
 
-    const newUser = new User(username, passwrod);
+    const newUser = new User(username);
 
     try {
         await newUser.save();
