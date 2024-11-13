@@ -3,13 +3,19 @@ import { MdOutlineEdit, MdDeleteOutline } from "react-icons/md";
 import './Tasks.css';
 
 export function OptionsMenu() {
-    const items = [
-        {name: 'Edit', icon: MdOutlineEdit},
-        {name: 'Delete', icon: MdDeleteOutline},
-    ];
-
     return (
         <div className='options-box'>
+            <div className='options-menu'>
+                <div className='edit-bar'>
+                    <div className='edit-icon'><MdOutlineEdit /></div>
+                    <button className='edit-button'>Edit</button>
+                </div>
+                <div className='delete-bar'>
+                    <div className='delete-icon'><MdDeleteOutline /></div>
+                    <button className='delete-button'>Delete</button>
+                </div>
+                
+            </div>
         </div>
     );
 }
