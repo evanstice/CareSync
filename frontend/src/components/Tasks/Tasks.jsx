@@ -3,6 +3,7 @@ import { MdTask } from "react-icons/md";
 import './Tasks.css'
 import TasksView from './TasksView'
 import axios from 'axios'
+import OptionsMenu from './OptionsMenu'
 
 export default function Tasks( { tasks, createTask, updateTask, deleteTask }) {
     const [newTask, setNewTask] = useState("")
@@ -38,6 +39,23 @@ export default function Tasks( { tasks, createTask, updateTask, deleteTask }) {
                     </button>
                 </div>
             </form>
+            <div className='task-view-labels'>
+                <div className='task-title-label'>
+                    <div className='checkmark'>
+                    ✓
+                    </div>
+                Task
+                </div>
+                <div className='task-date-label'>
+                    Complete By
+                </div>
+                <div className='task-member-label'>
+                    Assigned To
+                </div>
+                <div className='spacer'>
+                    
+                </div>
+            </div>
             <div className='tasks-view-wrapper'>
                 <TasksView
                     tasks={tasks}
