@@ -1,4 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
+import NavBar from '../components/Navbar/NavBar';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -35,22 +36,11 @@ const Home = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <button style={styles.button} onClick={handleLogout}>Logout</button>
-      <h1 style={styles.h1}>CareSync</h1>
-
-      <h2 style={styles.h2}>
-        <Link to="/all-tasks" style={styles.link}>All Tasks</Link>
-      </h2>
-
-      <h2 style={styles.h2}>
-        <Link to="/medication-tracker" style={styles.link}>Medication Tracker</Link>
-      </h2>
-
-      <h2 style={styles.h2}>
-        <Link to="/task-manager" style={styles.link}>Task Manager</Link>
-      </h2>
-    </div>
+    <>
+    <div className='navbar-wrapper'>
+        <NavBar />
+      </div>
+    </>
   );
 };
 

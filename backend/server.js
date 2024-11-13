@@ -1,13 +1,15 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import taskRoutes from "./routes/taskRoutes.js";
+import cors from "cors"
 
 dotenv.config();
 const app = express();
+const PORT = process.env.port || 4000
 
-app.get("/", (req, res) => {
-    res.send("Server is ready");
-});
+app.use(cors())
+app.use(express.json()); // permits use of .json in 'req' below
 
 const connectDB = async() => {
     try {
@@ -20,9 +22,11 @@ const connectDB = async() => {
     }
 }
 
-app.listen(5000, () => {
+app.use("/api/tasks", taskRoutes)
+
+app.listen(PORT, () => {
     connectDB();
-    console.log("Server started at http://localhost:5000");
+    console.log("Server started at http://localhost:4000");
 });
 
 

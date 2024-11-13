@@ -1,22 +1,47 @@
 .navbar {
-    background-color: #679ac6;
+    background-color: #99afbf;
     height: 80px;
-    width: 100vh;
+    width: auto;
     display: flex;
-    justify-content: start;
     align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.2));
+}
+
+.nav-title {
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    font-size: 3rem;
+    flex: 1;
+    text-align: center;
 }
 
 .menu-bars {
-    padding-top: 0.5rem;
-    margin-left: 2rem;
     font-size: 2.5rem;
     background-color: none;
-    color: azure;
+    color: white;
+    flex: 1;
+    text-align: left;
+    padding-top: 0.8rem;
+}
+
+.log-out-button {
+    font-size: 2.5rem;
+    background-color: none;
+    color: white;
+    flex: 1;
+    text-align: right;
+    padding-top: 0.8rem;
+}
+
+.close-button {
+    padding-left: 20px;
 }
 
 .nav-menu {
-    background-color: #679ac6;
+    background-color: #99afbf;
     width: 300px;
     height: 100vh;
     display: flex;
@@ -45,7 +70,7 @@
 
 .nav-text a {
     text-decoration: none;
-    color: azure;
+    color: white;
     font-size: 25px;
     width: 95%;
     height: 100%;
@@ -57,7 +82,7 @@
 }
 
 .nav-text a:hover {
-    background-color: #567fa3;
+    background-color: #8ca0af;
     font-size: 24px;
 }
 
