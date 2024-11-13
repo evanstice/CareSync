@@ -20,12 +20,21 @@ export function TaskItem({ task, _id, completed, updateTask, deleteTask }) {
                 <div className='task-title'>
                     {task}
                 </div>
+                <div className='need-by-date'>
+                    12-24-2024
+                </div>
+                <div className='family-member'>
+                    Evan
+                </div>
+                <div className='task-options-button'>
                 <IconButton
                     sx={{color: 'white'}}
                     size="10"
                     onClick={() => deleteTask(_id)}>
                     <MoreVertIcon fontSize='small' />
                 </IconButton>
+                </div>
+                
         </div>
         );
         
