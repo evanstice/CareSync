@@ -1,17 +1,24 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const CreateAccount = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const signInClick = () => {
-    // Example: Check if the username and password are valid
-    if (username && password) {
-      navigate('/home'); // Redirect to Home after sign-in
+  const createAccountClick = () => {
+    // Password validation: must contain a number and a capital letter
+    if (!username && !(password.match(/[0-9]/) && password.match(/[A-Z]/))) {
+      setMessage('Invalid username and password');
+    } else if (!username) {
+      setMessage('Invalid username') ;
+    } else if (!(password.match(/[0-9]/) && password.match(/[A-Z]/))) {
+      setMessage('Password needs one number and one capital letter.');
     } else {
-      alert('Please enter valid credentials');
+      // Add database implementation
+      // Navigate to home on successful account creation
+      navigate('/home');
     }
   };
 
@@ -41,15 +48,15 @@ const Login = () => {
       backgroundColor: 'lightgray',
       marginTop: '20px',
     },
-    link: {
-      fontSize: '13px',
+    message: {
+      color: 'red',
     },
   };
 
   return (
-    <div>
+    <>
       <div style={styles.container}>
-        <h3>Sign In</h3>
+        <h3>Create Account</h3>
         <form>
           <input
             type="text"
@@ -58,7 +65,7 @@ const Login = () => {
             onChange={(e) => setUsername(e.target.value)}
             style={styles.input}
           />
-          <br />
+          <p>Max 20 characters</p>
           <input
             type="password"
             placeholder="Password"
@@ -66,20 +73,18 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             style={styles.input}
           />
-          <br />
+          <p>Password must have 1 Capital Letter and 1 number. Max 20 characters</p>
           <input
             type="button"
-            value="Sign In"
-            onClick={signInClick}
+            value="Create Account"
+            onClick={createAccountClick}
             style={styles.button}
           />
+          <p style={styles.message}>{message}</p>
         </form>
-        <Link to="/create-account" style={styles.link}>
-          Create Account
-        </Link>
       </div>
-    </div>
+    </>
   );
 };
 
-export default Login;
+export default CreateAccount;

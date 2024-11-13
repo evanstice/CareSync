@@ -37,7 +37,9 @@ const Home = () => {
 
   return (
     <>
-    
+    <div className='navbar-wrapper'>
+        <NavBar />
+      </div>
     </>
   );
 };
