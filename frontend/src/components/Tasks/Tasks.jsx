@@ -3,6 +3,7 @@ import { MdTask } from "react-icons/md";
 import './Tasks.css'
 import TasksView from './TasksView'
 import axios from 'axios'
+import OptionsMenu from './OptionsMenu'
 
 export default function Tasks( { tasks, createTask, updateTask, deleteTask }) {
     const [newTask, setNewTask] = useState("")
