@@ -1,6 +1,7 @@
 import Task from "../models/Task.js";
 import mongoose from "mongoose";
 
+// Create a new task
 export const createTask = async(req, res) => {
     const task = req.body;
     console.log("Request body:", req.body)
@@ -20,6 +21,7 @@ export const createTask = async(req, res) => {
     }
 };
 
+// Fetch all tasks from DB
 export const getTasks = async(req, res) => {
     try {
         const tasks = await Task.find();
@@ -31,12 +33,17 @@ export const getTasks = async(req, res) => {
     }
 };
 
-// To be finished based on frontend implementation
+// Update a task
 export const updateTask = async(req, res) => {
-    const task = req.body
+    const { id } = req.params;
+    const task = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Task ID Does Not Exist" });
+    }
 
     try {
-        // const updatedTask = await Task.find
+        const updatedTask = await Task.findByIdAndUpdate(id, task, { new: true }) // gives updated task object
         res.status(200).json({success: true, data: updatedTask})
     }
     catch (error) {
@@ -45,7 +52,9 @@ export const updateTask = async(req, res) => {
     }
 };
 
+// Delete a task
 export const deleteTask = async(req, res) => {
+    const { id } = req.params;
     try {
         
     }
