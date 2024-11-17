@@ -6,7 +6,7 @@ import NavBar from '../components/Navbar/NavBar';
 export default function TasksPage() {
     const [tasks, setTasks] = useState([])
 
-    // Load tasks from the backend
+    // GET (getTasks): load tasks from the backend
     useEffect(() => {
         console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
         axios
@@ -28,15 +28,15 @@ export default function TasksPage() {
             .catch((error) => console.error('Error creating task:', error.message))
     }
 
-    // PUT (updateTask)
-    function updateTask(id, completed) {
+    // Send PUT request to backend API to update a specific task -- .then() handles response from the server
+    function updateTask(id, updatedData) {
         axios
-            .put(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, { completed })
+            .put(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, updatedData)
             .then((res) => {
                 setTasks(currTasks =>
                     currTasks.map(task => {
                         if (task._id === id) {
-                            return {...task, completed};
+                            return {...task, ...updatedData};
                         }
                         return task
                     })
