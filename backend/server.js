@@ -2,11 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import taskRoutes from "./routes/taskRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 import cors from "cors"
 
 dotenv.config();
 const app = express();
-const PORT = process.env.port || 4000
+const PORT = process.env.PORT || 4000
 
 app.use(cors())
 app.use(express.json()); // permits use of .json in 'req' below
@@ -23,6 +24,7 @@ const connectDB = async() => {
 }
 
 app.use("/api/tasks", taskRoutes)
+app.use("/api/users", userRoutes)
 
 app.listen(PORT, () => {
     connectDB();
