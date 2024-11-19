@@ -10,12 +10,12 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     familyGroup: {
-        type: int
+        type: String
     }
 }, {
     timestamps: true
 });
 
-// Creates Tasks collection in MongoDB
-const Task = mongoose.model("User", userSchema);
+// Creates User collection in MongoDB
+const User = mongoose.model("User", UserSchema);
 export default User;

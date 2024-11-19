@@ -19,7 +19,7 @@ export default function CreateAccount() {
           : 'Password needs one number and one capital letter.'
       );
     } else {
-      createUser({ username, password });
+      createUser({username, password});
     }
   };
 
@@ -27,28 +27,31 @@ export default function CreateAccount() {
 
   function createUser(userData) {
     axios
-      .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
-      .then((res) => {
-        setNewUser((currUser) => [...currUser, res.data.data]);
-        setMessage('Account created successfully!');
-        //navigate('/home');
-      })
-      .catch((error) => {
-        if (error.response) {
-          // Server responded with a status other than 2xx
-          console.error('Server error:', error.response.data);
-          setMessage(`Error: ${error.response.data.message || 'Failed to create account.'}`);
-        } else if (error.request) {
-          // Request was made but no response received
-          console.error('No response from server:', error.request);
-          setMessage('Error: No response from server.');
-        } else {
-          // Something else went wrong
-          console.error('Unexpected error:', error.message);
-          setMessage(`Error: ${error.message}`);
-        }
-      });
+    .post(`${import.meta.env.VITE_API_URL}/api/tasks`, userData)
+    .then(response => {
+    // Handle successful response
+    console.log('Account created:', response.data);
+    setMessage('Account created successfully!');
+  })
+  .catch((error) => {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.error('Server error:', error.response.status, error.response.data);
+      setMessage(`Error: ${error.response.data.message || 'Failed to create account.'}`);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.error('No response from server:', error.request);
+      setMessage('Error: No response from server.');
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      setMessage('else');
   }
+});
+  }
+
   
 
   
@@ -111,7 +114,6 @@ export default function CreateAccount() {
           onChange={(e) => setUsername(e.target.value)}
           style={styles.input}
         />
-        <p>Max 20 characters</p>
         <input
           type="password"
           placeholder="Password"
@@ -119,7 +121,7 @@ export default function CreateAccount() {
           onChange={(e) => setPassword(e.target.value)}
           style={styles.input}
         />
-        <p>Password must have 1 Capital Letter and 1 number. Max 20 characters</p>
+        <p>Password must have 1 Capital Letter and 1 number.</p>
         <input
           type="button"
           value="Create Account"
