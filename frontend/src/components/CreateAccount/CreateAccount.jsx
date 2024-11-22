@@ -20,6 +20,7 @@ export default function CreateAccount() {
       );
     } else {
       createUser({username, password});
+      // navitage home
     }
   };
 
@@ -27,7 +28,7 @@ export default function CreateAccount() {
 
   function createUser(userData) {
     axios
-    .post(`${import.meta.env.VITE_API_URL}/api/tasks`, userData)
+    .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
     .then(response => {
     // Handle successful response
     console.log('Account created:', response.data);

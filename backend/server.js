@@ -14,8 +14,7 @@ app.use(express.json()); // permits use of .json in 'req' below
 
 const connectDB = async() => {
     try {
-        //const db = await mongoose.connect(process.env.DB_URL)
-        const db = await mongoose.connect("mongodb+srv://leahjones1403:yX0zvRKMf5jBWwv7@caresync.tc6eo.mongodb.net/CareSync?retryWrites=true&w=majority&appName=CareSync")
+        const db = await mongoose.connect(process.env.DB_URL)
         console.log(`MongoDB Connected: ${db.connection.host}`)
     }
     catch (error) {
