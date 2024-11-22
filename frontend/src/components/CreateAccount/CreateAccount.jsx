@@ -1,7 +1,10 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+import mongoose from "mongoose";
 
-const CreateAccount = () => {
+export default function CreateAccount() {
+  const [newUser, setNewUser] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -9,18 +12,40 @@ const CreateAccount = () => {
 
   const createAccountClick = () => {
     // Password validation: must contain a number and a capital letter
-    if (!username && !(password.match(/[0-9]/) && password.match(/[A-Z]/))) {
-      setMessage('Invalid username and password');
-    } else if (!username) {
-      setMessage('Invalid username') ;
-    } else if (!(password.match(/[0-9]/) && password.match(/[A-Z]/))) {
-      setMessage('Password needs one number and one capital letter.');
+    if (!username || !password.match(/[0-9]/) || !password.match(/[A-Z]/)) {
+      setMessage(
+        !username
+          ? 'Invalid username'
+          : 'Password needs one number and one capital letter.'
+      );
     } else {
-      // Add database implementation
-      // Navigate to home on successful account creation
-      navigate('/home');
+      createUser({username, password});
     }
   };
+
+  function createUser(userData) {
+    axios
+      .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
+      .then(response => {
+        console.log('Account created:', response.data);
+        setMessage('Account created successfully!');
+    })
+    .catch((error) => {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Server error:', error.response.status, error.response.data);
+        setMessage(`Error: ${error.response.data.message || 'Failed to create account.'}`);
+      }
+      else {
+        // The request was made but no response was received
+        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+        // http.ClientRequest in node.js
+        console.error('No response from server:', error.request);
+        setMessage('Error: No response from server.');
+      }
+    });
+  }
 
   const styles = {
     container: {
@@ -54,37 +79,32 @@ const CreateAccount = () => {
   };
 
   return (
-    <>
-      <div style={styles.container}>
-        <h3>Create Account</h3>
-        <form>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            style={styles.input}
-          />
-          <p>Max 20 characters</p>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={styles.input}
-          />
-          <p>Password must have 1 Capital Letter and 1 number. Max 20 characters</p>
-          <input
-            type="button"
-            value="Create Account"
-            onClick={createAccountClick}
-            style={styles.button}
-          />
-          <p style={styles.message}>{message}</p>
-        </form>
-      </div>
-    </>
+    <div style={styles.container}>
+      <h3>Create Account</h3>
+      <form>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={styles.input}
+        />
+        <p>Password must have 1 Capital Letter and 1 number.</p>
+        <input
+          type="button"
+          value="Create Account"
+          onClick={createAccountClick}
+          style={styles.button}
+        />
+        <p style={styles.message}>{message}</p>
+      </form>
+    </div>
   );
-};
-
-export default CreateAccount;
+}
