@@ -1,16 +1,44 @@
-import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
-const Login = () => {
+export default function Login() {
+  const [users, setUsers] = useState([])
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
+  // GET (getUsers): load users from the backend
+  useEffect(() => {
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+    axios
+        .get(`${import.meta.env.VITE_API_URL}/api/users`)
+        .then((res) => {
+            console.log('Fetched users:', res.data.data)
+            setUsers(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching users:', error.message))
+}, [])
 
   const signInClick = () => {
     if (username && password) {
-      navigate('/home'); // Redirect to Home after sign-in
-    } else {
-      alert('Please enter valid credentials');
+      const user = users.find(u => u.username === username);
+
+      if(user) {
+        if(user.password === password) {
+            navigate('/home');
+          }
+        else {
+            setMessage('Invalid Username or Password');
+          }
+      }
+      else {
+        setMessage('Invalid Username or Password');
+        }
+    } 
+    else {
+      setMessage('Please enter valid credentials');
     }
   };
 
@@ -69,6 +97,9 @@ const Login = () => {
     linkHover: {
       textDecoration: 'underline',
     },
+    message: {
+      color: 'red',
+    },
   };
 
   return (
@@ -99,6 +130,7 @@ const Login = () => {
           >
             Sign In
           </button>
+          <p style={styles.message}>{message}</p>
         </form>
         <Link
           to="/create-account"
@@ -112,5 +144,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
