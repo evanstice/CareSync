@@ -8,11 +8,11 @@ export const createUser = async(req, res) => {
         return res.status(400).json({success: false, message: "No username and password"});
     }
 
-    const newUser = new User({ username, password });
+    const newUser = new User({username, password});
 
     try {
         await newUser.save();
-        res.status(201).json({ success: true, data: newUser });
+        res.status(201).json({success: true, data: newUser});
     }
     catch (error) {
         console.error("Error creating user:", error.message);

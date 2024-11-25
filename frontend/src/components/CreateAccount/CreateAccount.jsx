@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import mongoose from "mongoose";
 
 export default function CreateAccount() {
-  const [newUser, setNewUser] = useState([]);
+  const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -18,34 +18,43 @@ export default function CreateAccount() {
           ? 'Invalid username'
           : 'Password needs one number and one capital letter.'
       );
-    } else {
+    } 
+    else {
+      const user = users.find(u => u.username === username);  
+      if(user) {
+        setMessage('Username already exists')
+      }
+      else{
       createUser({username, password});
+      }
     }
   };
 
+    // GET (getUsers): load users from the backend
+    useEffect(() => {
+      console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+      axios
+          .get(`${import.meta.env.VITE_API_URL}/api/users`)
+          .then((res) => {
+              console.log('Fetched users:', res.data.data)
+              setUsers(res.data.data)
+          })
+          .catch((error) => console.error('Error fetching users:', error.message))
+  }, [])
+
   function createUser(userData) {
     axios
-      .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
-      .then(response => {
-        console.log('Account created:', response.data);
-        setMessage('Account created successfully!');
-    })
-    .catch((error) => {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error('Server error:', error.response.status, error.response.data);
-        setMessage(`Error: ${error.response.data.message || 'Failed to create account.'}`);
-      }
-      else {
-        // The request was made but no response was received
-        // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-        // http.ClientRequest in node.js
-        console.error('No response from server:', error.request);
-        setMessage('Error: No response from server.');
-      }
-    });
-  }
+    .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
+    .then(response => {
+    // Handle successful response
+    console.log('Account created:', response.data);
+    setMessage('Account created successfully!');
+    navigate('/home');
+  })
+  .catch((error) => {
+    setMessage('Error: Failed to create account')
+  })
+};
 
   const styles = {
     container: {
