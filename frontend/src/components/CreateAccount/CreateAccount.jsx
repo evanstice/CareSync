@@ -26,6 +26,7 @@ export default function CreateAccount() {
       }
       else{
       createUser({username, password});
+      navigate('/home');
       }
     }
   };
@@ -49,7 +50,6 @@ export default function CreateAccount() {
     // Handle successful response
     console.log('Account created:', response.data);
     setMessage('Account created successfully!');
-    navigate('/home');
   })
   .catch((error) => {
     setMessage('Error: Failed to create account')
