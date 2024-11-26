@@ -1,12 +1,15 @@
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import NavBar from '../components/Navbar/NavBar';
 
-export default function Login() {
+export default function UpdatePage() {
   const [users, setUsers] = useState([])
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [passMessage, setPassMessage] = useState('');
+  const [famMessage, setFamMessage] = useState('');
+  const [passcode, setPasscode] = useState('');
   const navigate = useNavigate();
 
   // GET (getUsers): load users from the backend
@@ -20,27 +23,6 @@ export default function Login() {
         })
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
-
-  const signInClick = () => {
-    if (username && password) {
-      const user = users.find(u => u.username === username);
-
-      if(user) {
-        if(user.password === password) {
-            navigate('/home');
-          }
-        else {
-            setMessage('Invalid Username or Password');
-          }
-      }
-      else {
-        setMessage('Invalid Username or Password');
-        }
-    } 
-    else {
-      setMessage('Please enter valid credentials');
-    }
-  };
 
   const styles = {
     body: {
@@ -61,10 +43,21 @@ export default function Login() {
       textAlign: 'center',
       fontFamily: 'Arial, sans-serif',
     },
+    containerWrapper: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '20px', // Adjust the space between containers
+      },
     header: {
       fontSize: '24px',
       marginBottom: '20px',
       color: '#4caf50',
+    },
+    text: {
+        fontSize: '14px',
+        marginBottom: '20px',
+        color: '#4caf50',
     },
     input: {
       width: '100%',
@@ -104,42 +97,59 @@ export default function Login() {
 
   return (
     <div style={styles.body}>
+    <div className='navbar-wrapper'>
+        <NavBar />
+    </div>
+      <div style={styles.containerWrapper}>
       <div style={styles.container}>
-        <h3 style={styles.header}>Sign In</h3>
-        <form>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            style={styles.input}
-          />
-          <input
+      <h3 style={styles.header}>Update Password</h3>
+      <p style={styles.text}>Please enter your old password</p>
+        <input
             type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Old Password"
+            value={oldPassword}
+            onChange={(e) => setOldPassword(e.target.value)}
             style={styles.input}
           />
-          <button
+        <input
+            type="password"
+            placeholder="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            style={styles.input}
+          />
+           <button
             type="button"
-            onClick={signInClick}
+            //onClick={updateOnClick}
             style={styles.button}
             onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
             onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
           >
-            Sign In
+            Update Password
           </button>
-          <p style={styles.message}>{message}</p>
-        </form>
-        <Link
-          to="/create-account"
-          style={styles.link}
-          onMouseOver={(e) => (e.target.style.textDecoration = styles.linkHover.textDecoration)}
-          onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
-        >
-          Create Account
-        </Link>
+          <p style={styles.message}>{passMessage}</p>
+      </div>
+      <div style={styles.container}>
+        <h3 style={styles.header}>Add Family</h3>
+        <p style={styles.text}>Please enter your family's passcode</p>
+        <input
+            type="text"
+            placeholder="Passcode"
+            value={passcode}
+            onChange={(e) => setPasscode(e.target.value)}
+            style={styles.input}
+          />
+           <button
+            type="button"
+            //onClick={deleteOnClick}
+            style={styles.button}
+            onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
+            onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
+          >
+            Join Family
+          </button>
+          <p style={styles.message}>{famMessage}</p>
+      </div>
       </div>
     </div>
   );
