@@ -23,8 +23,8 @@ export const NavBarData = [
         optionName: 'nav-text'
     },
     {
-        title: 'Family',
-        path: '/Family',
+        title: 'Settings',
+        path: '/Settings',
         icon: <IoIcons.IoMdPeople />,
         optionName: 'nav-text'
     },
