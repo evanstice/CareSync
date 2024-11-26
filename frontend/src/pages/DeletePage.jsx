@@ -1,14 +1,17 @@
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 import NavBar from '../components/Navbar/NavBar';
-import { useState, useEffect } from 'react';
 
-export default function FamilyPage() {
+export default function DeletePage() {
   const [users, setUsers] = useState([])
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
+
+    const deleteOnClick = () => {
+        setMessage("Function Called");
+    };
 
   // GET (getUsers): load users from the backend
   useEffect(() => {
@@ -46,6 +49,11 @@ export default function FamilyPage() {
       marginBottom: '20px',
       color: '#4caf50',
     },
+    text: {
+        fontSize: '14px',
+        marginBottom: '20px',
+        color: '#4caf50',
+      },
     input: {
       width: '100%',
       padding: '10px',
@@ -84,27 +92,29 @@ export default function FamilyPage() {
 
   return (
     <div style={styles.body}>
-      <div className='navbar-wrapper'>
+    <div className='navbar-wrapper'>
         <NavBar />
-      </div>
+    </div>
       <div style={styles.container}>
-        <h3 style={styles.header}>Account Settings</h3>
-        <Link
-          to="/delete-account"
-          style={styles.link}
-          onMouseOver={(e) => (e.target.style.textDecoration = styles.linkHover.textDecoration)}
-          onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
-        >
-          Delete Account
-        </Link>
-        <Link
-          to="/update-account"
-          style={styles.link}
-          onMouseOver={(e) => (e.target.style.textDecoration = styles.linkHover.textDecoration)}
-          onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
-        >
-          Change Password
-        </Link>
+        <h3 style={styles.header}>Delete Account</h3>
+        <p style={styles.text}>Please enter your password to delete account</p>
+        <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+          />
+           <button
+            type="button"
+            onClick={deleteOnClick}
+            style={styles.button}
+            onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
+            onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
+          >
+            Delete Account
+          </button>
+          <p style={styles.message}>{message}</p>
       </div>
     </div>
   );

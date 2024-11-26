@@ -1,8 +1,10 @@
 import Login from './components/Login/Login';
 import CreateAccount from './components/CreateAccount/CreateAccount';
 import TasksPage from './pages/TasksPage';
-import HomePage from './pages/HomePage'
-import NavBar from './components/Navbar/NavBar';
+import HomePage from './pages/HomePage';
+import FamilyPage from './pages/FamilyPage';
+import DeletePage from './pages/DeletePage';
+import UpdatePage from './pages/UpdatePage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -14,6 +16,9 @@ function App() {
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/tasks" element={<TasksPage />} />
+        <Route path="/family" element={<FamilyPage />} />
+        <Route path="/delete-account" element={<DeletePage />} />
+        <Route path="/update-account" element={<UpdatePage />} />
       </Routes>
     </Router>
   );

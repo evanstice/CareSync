@@ -31,12 +31,17 @@ export const getUser = async(req, res) => {
     }
 };
 
-// To be finished based on frontend implementation
+// Update User
 export const updateUser = async(req, res) => {
-    const user = req.body
+    const { id } = req.params;
+    const user = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "User ID Does Not Exist" });
+    }
 
     try {
-        // const updatedUser = await User.find
+        const updatedUser = await User.findByIdAndUpdate(id, user, { new: true }) // gives updated user object
         res.status(200).json({success: true, data: updatedUser})
     }
     catch (error) {

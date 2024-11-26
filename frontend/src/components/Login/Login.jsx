@@ -48,7 +48,7 @@ export default function Login() {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      backgroundColor: 'cornflowerblue', // Set to original Navy background
+      backgroundColor: '#33364B',
       margin: '0',
     },
     container: {
