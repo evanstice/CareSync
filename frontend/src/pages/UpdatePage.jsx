@@ -12,6 +12,40 @@ export default function UpdatePage() {
   const [passcode, setPasscode] = useState('');
   const navigate = useNavigate();
 
+  const updateOnClick = () => {
+    // Need to update based on current users password
+    const user = users.find(u => u.password === oldPassword);  
+    if(!newPassword || !oldPassword) 
+        {
+            setPassMessage(
+                !newPassword
+                    ? "New password not entered."
+                    : "Old password not entered."
+            );
+        }
+    else if(user) {
+        if(!newPassword.match(/[0-9]/) || !newPassword.match(/[A-Z]/)) {
+            setPassMessage("Password must have a captial letter and a number.")
+        }
+        else {
+            updatePassword(user._id, newPassword);
+        }
+    }
+    else {
+        setPassMessage("Old password is incorrect.");
+    }
+  };
+
+  const joinOnClick = () => {
+    // Need user auth
+    if(passcode.length != 5 || !passcode.match(/[0-9]/)) {
+      setFamMessage("Family code needs to be 5 numbers")  
+    }
+    else {
+      updateFam("6740b0b97a668227e37ba715", passcode);
+    }
+  };
+
   // GET (getUsers): load users from the backend
   useEffect(() => {
     console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
@@ -23,6 +57,48 @@ export default function UpdatePage() {
         })
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
+
+     // Send PUT request to backend API to update a specific password -- .then() handles response from the server
+     function updatePassword(id, updatedPassword) {
+        axios
+            .put(`${import.meta.env.VITE_API_URL}/api/users/${id}`, {password: updatedPassword})
+            .then((res) => {
+                setPassMessage("Updated password.")
+                setUsers(currUsers =>
+                    currUsers.map(user => {
+                        if (user._id === id) {
+                            return {...user, ...updatedPassword};
+                        }
+                        return user
+                    })
+                )
+            })
+            .catch((error) => { 
+              console.error('Error updating user:', error.message);
+              setPassMessage('Failed to change password');
+            })
+    }
+
+         // Send PUT request to backend API to update a specific family -- .then() handles response from the server
+         function updateFam(id, updatedFam) {
+              axios
+                  .put(`${import.meta.env.VITE_API_URL}/api/users/${id}`, {familyGroup: updatedFam})
+                  .then((res) => {
+                      setFamMessage("Updated family.")
+                      setUsers(currUsers =>
+                          currUsers.map(user => {
+                              if (user._id === id) {
+                                  return {...user, ...updatedFam};
+                              }
+                              return user
+                          })
+                      )
+                  })
+                  .catch((error) => { 
+                    console.error('Error updating family:', error.message);
+                    setFamMessage('Failed to add family');
+                  })
+          }
 
   const styles = {
     body: {
@@ -105,14 +181,14 @@ export default function UpdatePage() {
       <h3 style={styles.header}>Update Password</h3>
       <p style={styles.text}>Please enter your old password</p>
         <input
-            type="password"
+            type="text"
             placeholder="Old Password"
             value={oldPassword}
             onChange={(e) => setOldPassword(e.target.value)}
             style={styles.input}
           />
         <input
-            type="password"
+            type="text"
             placeholder="New Password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
@@ -120,7 +196,7 @@ export default function UpdatePage() {
           />
            <button
             type="button"
-            //onClick={updateOnClick}
+            onClick={updateOnClick}
             style={styles.button}
             onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
             onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
@@ -141,7 +217,7 @@ export default function UpdatePage() {
           />
            <button
             type="button"
-            //onClick={deleteOnClick}
+            onClick={joinOnClick}
             style={styles.button}
             onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
             onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
