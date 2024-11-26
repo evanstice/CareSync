@@ -10,7 +10,15 @@ export default function DeletePage() {
   const navigate = useNavigate();
 
     const deleteOnClick = () => {
-        setMessage("Function Called");
+    // Fix this with user auth
+    const user = users.find(u => u.password === password);
+    if(user) {
+      deleteUser(user._id);
+      navigate('/login');
+    }
+    else {
+        setMessage("Cannot find Account");
+      }
     };
 
   // GET (getUsers): load users from the backend
@@ -24,6 +32,26 @@ export default function DeletePage() {
         })
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
+
+function deleteUser(id) {
+  axios
+      .delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`)
+      .then((res) => {
+          setMessage("Deleted Account.")
+          setUsers(currUsers =>
+              currUsers.map(user => {
+                  if (user._id === id) {
+                      return {...user, ...updatedPassword};
+                  }
+                  return user
+              })
+          )
+      })
+      .catch((error) => { 
+        console.error('Error deleting user:', error.message);
+        setMessage('Failed to delete account.');
+      })
+}
 
   const styles = {
     body: {

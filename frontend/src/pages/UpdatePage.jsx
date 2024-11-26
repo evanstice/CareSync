@@ -13,7 +13,7 @@ export default function UpdatePage() {
   const navigate = useNavigate();
 
   const updateOnClick = () => {
-    // Need to update based on current users password
+    // Need to update based on current users password (user auth)
     const user = users.find(u => u.password === oldPassword);  
     if(!newPassword || !oldPassword) 
         {

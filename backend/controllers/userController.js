@@ -51,11 +51,24 @@ export const updateUser = async(req, res) => {
 };
 
 export const deleteUser = async(req, res) => {
-    try {
-        
+    const { id } = req.params;
+
+    // Check if the user ID is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "User ID does not exist" });
     }
-    catch (error) {
+
+    try {
+        // Attempt to find and delete the user by ID
+        const deletedUser = await User.findByIdAndDelete(id);
+        
+        if (!deletedUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        res.status(200).json({ success: true, message: "User deleted successfully", data: deletedUser });
+    } catch (error) {
         console.error("Error deleting user:", error.message);
-        res.status(500).json({success: false, message: "Error deleting user"});
+        res.status(500).json({ success: false, message: "Error deleting user" });
     }
 };

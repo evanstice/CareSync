@@ -16,7 +16,7 @@ function App() {
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/tasks" element={<TasksPage />} />
-        <Route path="/family" element={<FamilyPage />} />
+        <Route path="/settings" element={<FamilyPage />} />
         <Route path="/delete-account" element={<DeletePage />} />
         <Route path="/update-account" element={<UpdatePage />} />
       </Routes>
