@@ -27,8 +27,8 @@ export default function Login() {
 
       if(user) {
         if(user.password === password) {
-            createLogin(user.username);
-            navigate('/home');
+            createToken(user.username);
+            //navigate('/home');
           }
         else {
             setMessage('Invalid Username or Password');
@@ -42,6 +42,20 @@ export default function Login() {
       setMessage('Please enter valid credentials');
     }
   };
+
+  function createToken(tokenData) {
+    axios
+    .post(`${import.meta.env.VITE_API_URL}/api/tokens`, tokenData)
+    .then(response => {
+    // Handle successful response
+    console.log('Token created:', response.data);
+    setMessage('Token Created.')
+  })
+  .catch((error) => {
+    console.log('Error: Failed to create token')
+    setMessage('Token Not Created.');
+  })
+};
 
   const styles = {
     body: {

@@ -1,15 +1,16 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import loginRoutes from "./routes/loginRoutes.js";
+import tokenRoutes from "./routes/tokenRoutes.js";
 import cors from "cors"
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000
-const jwt = require('jsonwebtoken')
+
 
 app.use(cors())
 app.use(express.json()); // permits use of .json in 'req' below
@@ -27,6 +28,7 @@ const connectDB = async() => {
 
 app.use("/api/tasks", taskRoutes)
 app.use("/api/users", userRoutes)
+app.use("/api/tokens", tokenRoutes)
 
 app.listen(PORT, () => {
     connectDB();
