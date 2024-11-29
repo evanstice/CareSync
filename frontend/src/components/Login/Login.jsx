@@ -1,29 +1,43 @@
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import { useState } from 'react';
+import axios from 'axios'
+import { useState, useEffect } from 'react'
 
 export default function Login() {
+  const [users, setUsers] = useState([])
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
-  const signInClick = async () => {
+  // GET (getUsers): load users from the backend
+  useEffect(() => {
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+    axios
+        .get(`${import.meta.env.VITE_API_URL}/api/users`)
+        .then((res) => {
+            console.log('Fetched users:', res.data.data)
+            setUsers(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching users:', error.message))
+}, [])
+
+  const signInClick = () => {
     if (username && password) {
-      try {
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/login`, { username, password });
-        if (response.status === 200) {
-          // Successful login
-          console.log('Login successful:', response.data);
-          setMessage('Login successful!');
-          navigate('/home'); // Navigate to home
-        }
-      } catch (error) {
-        // Handle login errors
-        console.error('Login failed:', error.response?.data?.message || error.message);
-        setMessage('Invalid Username or Password');
+      const user = users.find(u => u.username === username);
+
+      if(user) {
+        if(user.password === password) {
+            navigate('/home');
+          }
+        else {
+            setMessage('Invalid Username or Password');
+          }
       }
-    } else {
+      else {
+        setMessage('Invalid Username or Password');
+        }
+    } 
+    else {
       setMessage('Please enter valid credentials');
     }
   };
@@ -34,7 +48,7 @@ export default function Login() {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      backgroundColor: '#33364B',
+      backgroundColor: 'cornflowerblue', // Set to original Navy background
       margin: '0',
     },
     container: {
@@ -129,4 +143,4 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
