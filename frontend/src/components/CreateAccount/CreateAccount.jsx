@@ -7,6 +7,7 @@ export default function CreateAccount() {
   const [users, setUsers] = useState([]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [re_password, setRePassword] = useState('');
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -19,6 +20,9 @@ export default function CreateAccount() {
           : 'Password needs one number and one capital letter.'
       );
     } 
+    else if(password != re_password) {
+      setMessage("Passwords do not match.")
+    }
     else {
       const user = users.find(u => u.username === username);  
       if(user) {
@@ -106,6 +110,14 @@ export default function CreateAccount() {
           style={styles.input}
         />
         <p>Password must have 1 Capital Letter and 1 number.</p>
+        <input
+          type="password"
+          placeholder= "Password"
+          value={re_password}
+          onChange={(e) => setRePassword(e.target.value)}
+          style={styles.input}
+        />
+        <p>Please re-enter your password.</p>
         <input
           type="button"
           value="Create Account"
