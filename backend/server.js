@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import loginRoutes from "./routes/loginRoutes.js";
 import cors from "cors"
 
 dotenv.config();
@@ -25,6 +26,7 @@ const connectDB = async() => {
 
 app.use("/api/tasks", taskRoutes)
 app.use("/api/users", userRoutes)
+app.use("/api", loginRoutes)
 
 app.listen(PORT, () => {
     connectDB();
