@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import mongoose from "mongoose";
@@ -58,40 +58,75 @@ export default function CreateAccount() {
   })
 };
 
-  const styles = {
-    container: {
-      margin: 'auto',
-      padding: '20px',
-      backgroundColor: 'white',
-      border: '30px solid mediumseagreen',
-      width: '250px',
-      textAlign: 'center',
-    },
-    h1: {
-      backgroundColor: 'aquamarine',
-      fontSize: '400%',
-      padding: '20px',
-    },
-    input: {
-      width: '250px',
-      height: '25px',
-      margin: 'auto',
-      marginBottom: '10px',
-    },
-    button: {
-      width: '250px',
-      height: '35px',
-      backgroundColor: 'lightgray',
-      marginTop: '20px',
-    },
-    message: {
-      color: 'red',
-    },
-  };
+const styles = {
+  body: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    backgroundColor: '#33364B',
+    margin: '0',
+  },
+  container: {
+    padding: '30px',
+    backgroundColor: '#ffffff',
+    border: '2px solid #4caf50',
+    borderRadius: '10px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    width: '300px',
+    textAlign: 'center',
+    fontFamily: 'Arial, sans-serif',
+  },
+  header: {
+    fontSize: '24px',
+    marginBottom: '20px',
+    color: '#4caf50',
+  },
+  text: {
+    fontSize: '12px',
+    marginBottom: '20px',
+    color: '#4caf50',
+  },
+  input: {
+    width: '100%',
+    padding: '10px',
+    margin: '10px 0',
+    border: '1px solid #ccc',
+    borderRadius: '5px',
+    boxSizing: 'border-box',
+  },
+  button: {
+    width: '100%',
+    padding: '10px',
+    backgroundColor: '#4caf50',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
+    fontSize: '16px',
+  },
+  buttonHover: {
+    backgroundColor: '#45a049',
+  },
+  link: {
+    fontSize: '14px',
+    color: '#4caf50',
+    textDecoration: 'none',
+    display: 'block',
+    marginTop: '10px',
+  },
+  linkHover: {
+    textDecoration: 'underline',
+  },
+  message: {
+    color: 'red',
+  },
+};
 
-  return (
+return (
+  <div style={styles.body}>
     <div style={styles.container}>
-      <h3>Create Account</h3>
+      <h3 style={styles.header}>Create Account</h3>
       <form>
         <input
           type="text"
@@ -107,23 +142,27 @@ export default function CreateAccount() {
           onChange={(e) => setPassword(e.target.value)}
           style={styles.input}
         />
-        <p>Password must have 1 Capital Letter and 1 number.</p>
+        <p style={styles.text}>Passwords requires one capital letter and a number.</p>
         <input
           type="password"
-          placeholder= "Password"
+          placeholder="Password"
           value={re_password}
           onChange={(e) => setRePassword(e.target.value)}
           style={styles.input}
         />
-        <p>Please re-enter your password.</p>
-        <input
+        <p style={styles.text}>Please re-enter your password</p>
+        <button
           type="button"
-          value="Create Account"
           onClick={createAccountClick}
           style={styles.button}
-        />
+          onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
+          onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
+        >
+          Sign In
+        </button>
         <p style={styles.message}>{message}</p>
       </form>
     </div>
-  );
-}
+  </div>
+);
+};
