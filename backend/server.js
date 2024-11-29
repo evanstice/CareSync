@@ -27,7 +27,6 @@ const connectDB = async() => {
 
 app.use("/api/tasks", taskRoutes)
 app.use("/api/users", userRoutes)
-app.use("/api/users", loginRoutes);
 
 app.listen(PORT, () => {
     connectDB();

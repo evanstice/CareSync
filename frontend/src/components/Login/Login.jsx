@@ -43,18 +43,6 @@ export default function Login() {
     }
   };
 
-function createLogin(loginData) {
-    axios
-    .post(`${import.meta.env.VITE_API_URL}/api/login`, loginData)
-    .then(response => {
-    // Handle successful response
-    console.log('Token created:', response.data);
-  })
-  .catch((error) => {
-    console.log('Error: Failed to create token')
-  })
-};
-
   const styles = {
     body: {
       display: 'flex',
