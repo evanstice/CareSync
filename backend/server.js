@@ -8,6 +8,7 @@ import cors from "cors"
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000
+const jwt = require('jsonwebtoken')
 
 app.use(cors())
 app.use(express.json()); // permits use of .json in 'req' below
