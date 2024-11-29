@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function Login() {
   const [users, setUsers] = useState([])
+  const [tokens, setTokens] = useState([])
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -21,12 +22,26 @@ export default function Login() {
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
 
+useEffect(() => {
+  console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+  axios
+      .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
+      .then((res) => {
+          console.log('Fetched tokens:', res.data.data)
+          setTokens(res.data.data)
+      })
+      .catch((error) => console.error('Error fetching tokens:', error.message))
+}, [])
+
   const signInClick = () => {
     if (username && password) {
       const user = users.find(u => u.username === username);
 
       if(user) {
         if(user.password === password) {
+            createToken(user);
+            const token = tokens.find(t => t.user_id === user._id);
+            localStorage.setItem('token', token)
             navigate('/home');
           }
         else {
@@ -41,6 +56,18 @@ export default function Login() {
       setMessage('Please enter valid credentials');
     }
   };
+
+  function createToken(tokenData) {
+    axios
+    .post(`${import.meta.env.VITE_API_URL}/api/tokens`, tokenData)
+    .then(response => {
+    // Handle successful response
+    console.log('Token created:', response.data);
+  })
+  .catch((error) => {
+    console.log('Error: Failed to create token')
+  })
+};
 
   const styles = {
     body: {

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PiSidebarSimple } from 'react-icons/pi';
 import { IoClose } from "react-icons/io5";
@@ -6,13 +5,45 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { NavBarData } from './NavBarData';
 import './NavBar.css'
 import { IconContext } from 'react-icons';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
-function NavBar() {
+export default function NavBar () {
+    const [tokens, setTokens] = useState([])
     const [sidebar, setSidebar] = useState(false)
     const handleLogout = () => {
-        // Add your logout logic here (e.g., clearing user data or tokens)
+        //deleteToken('674a2e4bcf35b5c534298989')
       };
     const showSidebar = () => setSidebar(!sidebar)
+
+    useEffect(() => {
+        console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+        axios
+            .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
+            .then((res) => {
+                console.log('Fetched tokens:', res.data.data)
+                setTokens(res.data.data)
+            })
+            .catch((error) => console.error('Error fetching tokens:', error.message))
+    }, [])
+
+    function deleteToken(id) {
+        axios
+            .delete(`${import.meta.env.VITE_API_URL}/api/tokens/${id}`)
+            .then((res) => {
+                setTokens(currTokens =>
+                    currTokens.map(token => {
+                        if (token._id === id) {
+                            return {...token, ...updatedToken};
+                        }
+                        return user
+                    })
+                )
+            })
+            .catch((error) => { 
+              console.error('Error deleting user:', error.message);
+            })
+      }
 
     return (
         <>
@@ -51,5 +82,3 @@ function NavBar() {
         </>
     )
 }
-
-export default NavBar;
