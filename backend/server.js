@@ -30,5 +30,3 @@ app.listen(PORT, () => {
     connectDB();
     console.log("Server started at http://localhost:4000");
 });
-
-
