@@ -36,17 +36,6 @@ export default function DeletePage() {
 function deleteUser(id) {
   axios
       .delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`)
-      .then((res) => {
-          setMessage("Deleted Account.")
-          setUsers(currUsers =>
-              currUsers.map(user => {
-                  if (user._id === id) {
-                      return {...user, ...updatedPassword};
-                  }
-                  return user
-              })
-          )
-      })
       .catch((error) => { 
         console.error('Error deleting user:', error.message);
         setMessage('Failed to delete account.');

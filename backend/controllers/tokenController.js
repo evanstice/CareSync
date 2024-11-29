@@ -3,14 +3,15 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
 export const createToken = async(req, res) => {
-    const username = req.body;
+    const {username, _id} = req.body;
     console.log("Request body:", req.body)
     if (!username) {
         return res.status(400).json({success: false, message: "No username and password"});
     }
 
-    const accessToken = jwt.sign( {username} , process.env.TOKEN_SECRET);
-    const newToken = new Token({ token: accessToken });
+    const accessToken = jwt.sign( username , process.env.TOKEN_SECRET);
+    const refresh_token = jwt.sign( username , process.env.REFRESH_TOKEN);
+    const newToken = new Token({ token: accessToken, user_id: _id, refresh_token: refresh_token });
 
 
     try {
@@ -29,27 +30,27 @@ export const getToken = async(req, res) => {
         res.status(200).json({success: true, data: users})
     }
     catch (error) {
-        console.error("Error fetching users:", error.message);
-        res.status(500).json({success: false, message: "Error fetching users"})
+        console.error("Error fetching tokens:", error.message);
+        res.status(500).json({success: false, message: "Error fetching tokens"})
     }
 };
 
 // Update User
 export const updateToken = async(req, res) => {
     const { id } = req.params;
-    const user = req.body;
+    const token = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ success: false, message: "User ID Does Not Exist" });
+        return res.status(404).json({ success: false, message: "Token ID Does Not Exist" });
     }
 
     try {
-        const updatedUser = await User.findByIdAndUpdate(id, user, { new: true }) // gives updated user object
-        res.status(200).json({success: true, data: updatedUser})
+        const updatedToken = await Token.findByIdAndUpdate(id, token, { new: true }) // gives updated user object
+        res.status(200).json({success: true, data: updatedToken})
     }
     catch (error) {
         console.error("Error updating product:", error.message);
-        res.status(500).json({success: false, message: "Error updating user"});
+        res.status(500).json({success: false, message: "Error updating token"});
     }
 };
 
@@ -58,20 +59,20 @@ export const deleteToken = async(req, res) => {
 
     // Check if the user ID is valid
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ success: false, message: "User ID does not exist" });
+        return res.status(404).json({ success: false, message: "Token ID does not exist" });
     }
 
     try {
         // Attempt to find and delete the user by ID
-        const deletedUser = await User.findByIdAndDelete(id);
+        const deletedToken = await Token.findByIdAndDelete(id);
         
-        if (!deletedUser) {
-            return res.status(404).json({ success: false, message: "User not found" });
+        if (!deletedToken) {
+            return res.status(404).json({ success: false, message: "Token not found" });
         }
 
-        res.status(200).json({ success: true, message: "User deleted successfully", data: deletedUser });
+        res.status(200).json({ success: true, message: "Token deleted successfully", data: deletedToken });
     } catch (error) {
-        console.error("Error deleting user:", error.message);
-        res.status(500).json({ success: false, message: "Error deleting user" });
+        console.error("Error deleting token:", error.message);
+        res.status(500).json({ success: false, message: "Error deleting token" });
     }
 };

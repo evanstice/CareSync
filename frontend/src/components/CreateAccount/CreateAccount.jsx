@@ -53,10 +53,8 @@ export default function CreateAccount() {
     .then(response => {
     // Handle successful response
     console.log('Account created:', response.data);
-    setMessage('Account created successfully!');
   })
   .catch((error) => {
-    setMessage('Error: Failed to create account')
   })
 };
 

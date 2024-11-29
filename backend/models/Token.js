@@ -5,6 +5,19 @@ const tokenSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true
+    },
+    refresh_token: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    user_id: {
+        type: String,
+        required: true
+    },
+    expiresAt: {
+        type: Date,
+        default: () => new Date(+new Date() + 24 * 60 * 60 * 1000), // 1 day expiry
     }
 }, {
     timestamps: true
