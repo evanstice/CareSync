@@ -1,34 +1,24 @@
 import mongoose from "mongoose";
 
+// Define the User schema
 const UserSchema = new mongoose.Schema(
     {
         username: {
             type: String,
-            required: true
+            required: true,
         },
         password: {
             type: String,
-            required: true
+            required: true,
         },
         familyGroup: {
-            type: Number // Fixed type from `int` to `Number`
-        }
+            type: Number, // Fixed type from `int` to `Number`
+        },
     },
-
-    password: {
-        type: String,
-        required: true
-    },
-    familyGroup: {
-        type: String
-
-    }
+    { timestamps: true } // Automatically adds createdAt and updatedAt fields
 );
 
-// Creates the User collection in MongoDB
+// Create the User model
 const User = mongoose.model("User", UserSchema);
 
-
-// Creates User collection in MongoDB
-const User = mongoose.model("User", UserSchema);
 export default User;
