@@ -59,7 +59,7 @@ export default function CreateAccount() {
       justifyContent: 'center',
       alignItems: 'center',
       height: '100vh',
-      backgroundColor: '#f4f7fc',
+      backgroundColor: 'cornflowerblue',
       margin: '0',
       fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
     },
