@@ -5,14 +5,15 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { NavBarData } from './NavBarData';
 import './NavBar.css'
 import { IconContext } from 'react-icons';
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function NavBar () {
     const [tokens, setTokens] = useState([])
     const [sidebar, setSidebar] = useState(false)
     const handleLogout = () => {
-        //deleteToken('674a2e4bcf35b5c534298989')
+        const token = localStorage.getItem('token');
+        deleteToken(token)
       };
     const showSidebar = () => setSidebar(!sidebar)
 

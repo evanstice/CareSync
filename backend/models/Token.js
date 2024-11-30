@@ -13,7 +13,8 @@ const tokenSchema = new mongoose.Schema({
     },
     user_id: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     expiresAt: {
         type: Date,

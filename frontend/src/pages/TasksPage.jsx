@@ -8,41 +8,41 @@ export default function TasksPage() {
 
     // GET (getTasks): load tasks from the backend
     useEffect(() => {
-        console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
+        console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+        const token = localStorage.getItem('token');
+        getTasks(token)
+    }, [])
     
-        // Get the JWT token from localStorage (or sessionStorage)
-        const token = localStorage.getItem('token'); // Replace with the key you used to store the token
-
-        if (token) {
-            // If a token is available, include it in the Authorization header
-            axios
-                .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
-                    headers: {
-                        Authorization: `Bearer ${token}` // Set the token in the Authorization header
-                    }
-                })
-                .then((res) => {
-                    console.log('Fetched tasks:', res.data.data);
-                    setTasks(res.data.data);
-                })
-                .catch((error) => {
-                    console.error('Error fetching tasks:', error.message);
-                });
-        } else {
-            console.error('No token found. Please log in.');
-        }
-    }, []);
-    
+    function getTasks(token) {
+        axios
+        .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Make sure 'Bearer' is included
+            }
+        })
+        .then((res) => {
+            console.log('Fetched tasks:', res.data.data)
+            setTasks(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching tasks:', error.message))
+    }
 
     // POST (createTask)
-    function createTask(newTask) {
+    function createTask(newTask, token) {
+        console.log("token:", token)
         axios
-            .post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask)
-            .then((res) => {
-                setTasks((currTasks) => [...currTasks, res.data.data])
+            .post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Include 'Bearer' token for authorization
+                }
             })
-            .catch((error) => console.error('Error creating task:', error.message))
+            .then((res) => {
+                console.log('Created task:', res.data.data);
+                setTasks((currTasks) => [...currTasks, res.data.data]);
+            })
+            .catch((error) => console.error('Error creating task:', error.message));
     }
+    
 
     // Send PUT request to backend API to update a specific task -- .then() handles response from the server
     function updateTask(id, updatedData) {
@@ -86,16 +86,4 @@ export default function TasksPage() {
       </div>
     </>
     )
-}
-
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers['Authorization']
-    const token = authHeader.split[' '][1]
-    if (token == null) return res.sendStatus(401)
-    
-        jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-            if(err) return res.sendStatus(403)
-            req.user = user
-            next()
-        })
 }
