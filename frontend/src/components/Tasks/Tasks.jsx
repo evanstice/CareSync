@@ -9,11 +9,14 @@ export default function Tasks( { tasks, createTask, updateTask, deleteTask }) {
     const [newTask, setNewTask] = useState("")
 
     function handleSubmit(event) {
-        event.preventDefault()
-        if (newTask == "") return
-        createTask({ task: newTask })
-        setNewTask("")
+        event.preventDefault();
+        if (newTask === "") return;
+    
+        const token = localStorage.getItem('token');
+        createTask({ task: newTask }, token);
+        setNewTask("");
     }
+    
     
     return (
         <div className='background'>

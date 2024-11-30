@@ -28,14 +28,21 @@ export default function TasksPage() {
     }
 
     // POST (createTask)
-    function createTask(newTask) {
+    function createTask(newTask, token) {
+        console.log("token:", token)
         axios
-            .post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask)
-            .then((res) => {
-                setTasks((currTasks) => [...currTasks, res.data.data])
+            .post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask, {
+                headers: {
+                    Authorization: `Bearer ${token}` // Include 'Bearer' token for authorization
+                }
             })
-            .catch((error) => console.error('Error creating task:', error.message))
+            .then((res) => {
+                console.log('Created task:', res.data.data);
+                setTasks((currTasks) => [...currTasks, res.data.data]);
+            })
+            .catch((error) => console.error('Error creating task:', error.message));
     }
+    
 
     // Send PUT request to backend API to update a specific task -- .then() handles response from the server
     function updateTask(id, updatedData) {
