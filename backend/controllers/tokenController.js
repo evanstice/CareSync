@@ -4,13 +4,12 @@ import jwt from "jsonwebtoken";
 
 export const createToken = async(req, res) => {
     const {username, _id} = req.body;
-    console.log("Request body:", req.body)
     if (!username) {
         return res.status(400).json({success: false, message: "No username and password"});
     }
 
-    const accessToken = jwt.sign( username , process.env.TOKEN_SECRET);
-    const refresh_token = jwt.sign( username , process.env.REFRESH_TOKEN);
+    const accessToken = jwt.sign( {username, _id}, process.env.TOKEN_SECRET);
+    const refresh_token = jwt.sign( {username, _id} , process.env.REFRESH_TOKEN);
     const newToken = new Token({ token: accessToken, user_id: _id, refresh_token: refresh_token });
 
 

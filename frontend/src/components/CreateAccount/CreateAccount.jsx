@@ -158,7 +158,7 @@ return (
           onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
           onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
         >
-          Sign In
+          Create Account
         </button>
         <p style={styles.message}>{message}</p>
       </form>

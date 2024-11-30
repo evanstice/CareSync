@@ -1,5 +1,6 @@
 import Task from "../models/Task.js";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
 // Create a new task
 export const createTask = async(req, res) => {
@@ -22,16 +23,28 @@ export const createTask = async(req, res) => {
 };
 
 // Fetch all tasks from DB
-export const getTasks = async(req, res) => {
-    try {
-        const tasks = await Task.find();
-        res.status(200).json({success: true, data: tasks})
+export const getTasks = async (req, res) => {
+    // Extract the token from the Authorization header
+    const token = req.header('Authorization')?.split(' ')[1]; // 'Bearer <token>'
+    console.log("token: ", token)
+    if (!token) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
-    catch (error) {
-        console.error("Error fetching tasks:", error.message);
-        res.status(500).json({success: false, message: "Error fetching tasks"})
+
+    try {
+        // Verify the token
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET); // Use your secret key
+        const userId = decoded._id; // Assuming the token contains user information like _id
+        console.log("User Id: ", userId)
+        // Fetch tasks for the specific user
+        const tasks = await Task.find({ user_id: userId }); // Assuming tasks are linked to users via user_id
+        res.status(200).json({ success: true, data: tasks });
+    } catch (error) {
+        console.error('Error verifying token or fetching tasks:', error.message);
+        res.status(500).json({ success: false, message: 'Server error' });
     }
 };
+
 
 // Update a task
 export const updateTask = async(req, res) => {

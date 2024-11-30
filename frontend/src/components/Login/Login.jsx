@@ -22,17 +22,6 @@ export default function Login() {
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
 
-useEffect(() => {
-  console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
-  axios
-      .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
-      .then((res) => {
-          console.log('Fetched tokens:', res.data.data)
-          setTokens(res.data.data)
-      })
-      .catch((error) => console.error('Error fetching tokens:', error.message))
-}, [])
-
   const signInClick = () => {
     if (username && password) {
       const user = users.find(u => u.username === username);
@@ -40,8 +29,6 @@ useEffect(() => {
       if(user) {
         if(user.password === password) {
             createToken(user);
-            const token = tokens.find(t => t.user_id === user._id);
-            localStorage.setItem('token', token)
             navigate('/home');
           }
         else {
@@ -62,6 +49,8 @@ useEffect(() => {
     .post(`${import.meta.env.VITE_API_URL}/api/tokens`, tokenData)
     .then(response => {
     // Handle successful response
+        const token = response.data.data.token;  // Assuming the response includes the token
+        localStorage.setItem('token', token);
     console.log('Token created:', response.data);
   })
   .catch((error) => {

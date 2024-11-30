@@ -14,6 +14,9 @@ const taskSchema = new mongoose.Schema({
     completed: {
         type: Boolean,
         default: false,
+    },
+    user_id: {
+        type: String
     }
 }, {
     timestamps: true
