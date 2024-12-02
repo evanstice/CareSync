@@ -39,12 +39,13 @@ export const getTasks = async (req, res) => {
 
     try {
         // Verify the token
-        const decoded = jwt.verify(token, process.env.TOKEN_SECRET); // Use your secret key
-        const userId = decoded._id; 
-        const familyId = decoded.familyGroup
+        const [header, payload, signature] = token.split('.')
+        const decodedPayload = JSON.parse(atob(payload));
+        const userId = decodedPayload._id
+        const familyId = decodedPayload.familyGroup
         // Fetch tasks for the specific user
         if(familyId != null) {
-            const tasks = await Task.find({ user_id: userId }); 
+            const tasks = await Task.find({ family_id: familyId }); 
             res.status(200).json({ success: true, data: tasks });
         }
         else {

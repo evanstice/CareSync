@@ -12,7 +12,6 @@ export default function NavBar () {
     const [tokens, setTokens] = useState([])
     const [sidebar, setSidebar] = useState(false)
     const handleLogout = () => {
-        const token = localStorage.getItem('token');
         const the_token = tokens.find(u => u.token === token);
         const id = the_token._id
         deleteToken(id)
