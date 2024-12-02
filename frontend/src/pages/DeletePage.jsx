@@ -10,10 +10,12 @@ export default function DeletePage() {
   const navigate = useNavigate();
 
     const deleteOnClick = () => {
-    // Fix this with user auth
-    const user = users.find(u => u.password === password);
-    if(user) {
-      deleteUser(user._id);
+      const token = localStorage.getItem('token')
+      console.log("Token:", token)
+      const [header, payload, signature] = token.split('.')
+      const decodedPayload = JSON.parse(atob(payload));
+    if(decodedPayload) {
+      deleteUser(decodedPayload._id);
       navigate('/login');
     }
     else {

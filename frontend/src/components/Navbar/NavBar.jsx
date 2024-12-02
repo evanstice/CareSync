@@ -13,7 +13,9 @@ export default function NavBar () {
     const [sidebar, setSidebar] = useState(false)
     const handleLogout = () => {
         const token = localStorage.getItem('token');
-        deleteToken(token)
+        const the_token = tokens.find(u => u.token === token);
+        const id = the_token._id
+        deleteToken(id)
       };
     const showSidebar = () => setSidebar(!sidebar)
 
@@ -31,16 +33,6 @@ export default function NavBar () {
     function deleteToken(id) {
         axios
             .delete(`${import.meta.env.VITE_API_URL}/api/tokens/${id}`)
-            .then((res) => {
-                setTokens(currTokens =>
-                    currTokens.map(token => {
-                        if (token._id === id) {
-                            return {...token, ...updatedToken};
-                        }
-                        return user
-                    })
-                )
-            })
             .catch((error) => { 
               console.error('Error deleting user:', error.message);
             })

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import NavBar from '../components/Navbar/NavBar';
 
 export default function UpdatePage() {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [passMessage, setPassMessage] = useState('');
@@ -13,8 +13,10 @@ export default function UpdatePage() {
   const navigate = useNavigate();
 
   const updateOnClick = () => {
-    // Need to update based on current users password (user auth)
-    const user = users.find(u => u.password === oldPassword);  
+    const token = localStorage.getItem('token')
+    console.log("Token:", token)
+    const [header, payload, signature] = token.split('.')
+    const decodedPayload = JSON.parse(atob(payload));
     if(!newPassword || !oldPassword) 
         {
             setPassMessage(
@@ -23,12 +25,12 @@ export default function UpdatePage() {
                     : "Old password not entered."
             );
         }
-    else if(user) {
+    else if(decodedPayload) {
         if(!newPassword.match(/[0-9]/) || !newPassword.match(/[A-Z]/)) {
             setPassMessage("Password must have a captial letter and a number.")
         }
         else {
-            updatePassword(user._id, newPassword);
+            updatePassword(decodedPayload._id, newPassword);
         }
     }
     else {
@@ -37,26 +39,16 @@ export default function UpdatePage() {
   };
 
   const joinOnClick = () => {
-    // Need user auth
+    const token = localStorage.getItem('token')
+    const [header, payload, signature] = token.split('.')
+    const decodedPayload = JSON.parse(atob(payload));
     if(passcode.length != 5 || !passcode.match(/[0-9]/)) {
       setFamMessage("Family code needs to be 5 numbers")  
     }
     else {
-      updateFam("6740b0b97a668227e37ba715", passcode);
+      updateFam(decodedPayload._id, passcode);
     }
   };
-
-  // GET (getUsers): load users from the backend
-  useEffect(() => {
-    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
-    axios
-        .get(`${import.meta.env.VITE_API_URL}/api/users`)
-        .then((res) => {
-            console.log('Fetched users:', res.data.data)
-            setUsers(res.data.data)
-        })
-        .catch((error) => console.error('Error fetching users:', error.message))
-}, [])
 
      // Send PUT request to backend API to update a specific password -- .then() handles response from the server
      function updatePassword(id, updatedPassword) {

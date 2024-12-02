@@ -41,9 +41,16 @@ export const getTasks = async (req, res) => {
         // Verify the token
         const decoded = jwt.verify(token, process.env.TOKEN_SECRET); // Use your secret key
         const userId = decoded._id; 
+        const familyId = decoded.familyGroup
         // Fetch tasks for the specific user
-        const tasks = await Task.find({ user_id: userId }); 
-        res.status(200).json({ success: true, data: tasks });
+        if(familyId != null) {
+            const tasks = await Task.find({ user_id: userId }); 
+            res.status(200).json({ success: true, data: tasks });
+        }
+        else {
+            const tasks = await Task.find({ user_id: userId }); 
+            res.status(200).json({ success: true, data: tasks });
+        }
     } catch (error) {
         console.error('Error verifying token or fetching tasks:', error.message);
         res.status(500).json({ success: false, message: 'Server error' });
