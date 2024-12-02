@@ -10,14 +10,14 @@ export default function TasksPage() {
     useEffect(() => {
         console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
         const token = localStorage.getItem('token');
-        getTasks(token)
+        getTasks(token);
     }, [])
     
     function getTasks(token) {
         axios
         .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
             headers: {
-                Authorization: `Bearer ${token}` // Make sure 'Bearer' is included
+                Authorization: `Bearer ${token}`
             }
         })
         .then((res) => {

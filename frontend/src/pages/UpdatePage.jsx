@@ -5,6 +5,8 @@ import NavBar from '../components/Navbar/NavBar';
 
 export default function UpdatePage() {
   const [users, setUsers] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [tokens, setTokens] = useState([]);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [passMessage, setPassMessage] = useState('');
@@ -12,9 +14,35 @@ export default function UpdatePage() {
   const [passcode, setPasscode] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+    const token = localStorage.getItem('token');
+    getTasks(token);
+    axios
+        .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
+        .then((res) => {
+            console.log('Fetched tokens:', res.data.data)
+            setTokens(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching tokens:', error.message))
+}, [])
+
+    function getTasks(token) {
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((res) => {
+          console.log('Fetched tasks:', res.data.data)
+          setTasks(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching tasks:', error.message))
+        }
+
   const updateOnClick = () => {
     const token = localStorage.getItem('token')
-    console.log("Token:", token)
     const [header, payload, signature] = token.split('.')
     const decodedPayload = JSON.parse(atob(payload));
     if(!newPassword || !oldPassword) 
@@ -47,8 +75,47 @@ export default function UpdatePage() {
     }
     else {
       updateFam(decodedPayload._id, passcode);
-    }
+      decodedPayload.familyGroup = passcode;
+      updateTask(decodedPayload._id, passcode);
+      localStorage.removeItem('token');
+      const the_token = tokens.find(u => u.token === token);
+      const id = the_token._id
+      deleteToken(id)
+      createToken(decodedPayload);
   };
+};
+
+function updateTask(userId, familyId) {
+  axios
+    .put(`${import.meta.env.VITE_API_URL}/api/tasks/updateByUser/${userId}`, { family_id: familyId })
+    .then((res) => {
+      console.log('Tasks updated successfully:', res.data);
+      // Optionally, you can update the local state here if needed
+    })
+    .catch((error) => console.error('Error updating tasks:', error.message));
+}
+
+function createToken(tokenData) {
+  axios
+  .post(`${import.meta.env.VITE_API_URL}/api/tokens`, tokenData)
+  .then(response => {
+  // Handle successful response
+      const token = response.data.data.token;  // Assuming the response includes the token
+      localStorage.setItem('token', token);
+  console.log('Token created:', response.data);
+})
+.catch((error) => {
+  console.log('Error: Failed to create token')
+})
+};
+
+function deleteToken(id) {
+  axios
+      .delete(`${import.meta.env.VITE_API_URL}/api/tokens/${id}`)
+      .catch((error) => { 
+        console.error('Error deleting user:', error.message);
+      })
+}
 
      // Send PUT request to backend API to update a specific password -- .then() handles response from the server
      function updatePassword(id, updatedPassword) {
@@ -91,7 +158,7 @@ export default function UpdatePage() {
                     setFamMessage('Failed to add family');
                   })
           }
-
+  
   const styles = {
     body: {
       display: 'flex',
