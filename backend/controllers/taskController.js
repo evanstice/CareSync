@@ -17,7 +17,7 @@ export const createTask = async(req, res) => {
 
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET); 
     const userId = decoded._id; 
-    const newTask = new Task({task: task.task, user_id: userId});
+    const newTask = new Task({task: task.task, user_id: userId, family_id: decoded.familyGroup});
 
     try {
         await newTask.save();
@@ -88,4 +88,17 @@ export const deleteTask = async(req, res) => {
         console.error("Error deleting task:", error.message);
         res.status(500).json({success: false, message: "Error deleting task"});
     }
+};
+
+export const updateByID = async(req, res) => {
+    try {
+        const { userId } = req.params;
+        const { family_id } = req.body;
+        
+        const result = await Task.updateMany({ user_id: userId }, { family_id: family_id });
+        
+        res.json({ message: 'Tasks updated successfully', modifiedCount: result.modifiedCount });
+      } catch (error) {
+        res.status(500).json({ message: 'Error updating tasks', error: error.message });
+      }
 };

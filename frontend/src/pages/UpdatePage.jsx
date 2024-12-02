@@ -16,6 +16,8 @@ export default function UpdatePage() {
 
   useEffect(() => {
     console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+    const token = localStorage.getItem('token');
+    getTasks(token);
     axios
         .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
         .then((res) => {
@@ -25,9 +27,22 @@ export default function UpdatePage() {
         .catch((error) => console.error('Error fetching tokens:', error.message))
 }, [])
 
+    function getTasks(token) {
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((res) => {
+          console.log('Fetched tasks:', res.data.data)
+          setTasks(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching tasks:', error.message))
+        }
+
   const updateOnClick = () => {
     const token = localStorage.getItem('token')
-    console.log("Token:", token)
     const [header, payload, signature] = token.split('.')
     const decodedPayload = JSON.parse(atob(payload));
     if(!newPassword || !oldPassword) 
@@ -61,6 +76,7 @@ export default function UpdatePage() {
     else {
       updateFam(decodedPayload._id, passcode);
       decodedPayload.familyGroup = passcode;
+      updateTask(decodedPayload._id, passcode);
       localStorage.removeItem('token');
       const the_token = tokens.find(u => u.token === token);
       const id = the_token._id
@@ -68,6 +84,16 @@ export default function UpdatePage() {
       createToken(decodedPayload);
   };
 };
+
+function updateTask(userId, familyId) {
+  axios
+    .put(`${import.meta.env.VITE_API_URL}/api/tasks/updateByUser/${userId}`, { family_id: familyId })
+    .then((res) => {
+      console.log('Tasks updated successfully:', res.data);
+      // Optionally, you can update the local state here if needed
+    })
+    .catch((error) => console.error('Error updating tasks:', error.message));
+}
 
 function createToken(tokenData) {
   axios
