@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 
 // Create a new task
 export const createTask = async(req, res) => {
+    // Get the users token
     const token = req.header('Authorization')?.split(' ')[1]; // 'Bearer <token>'
     if (!token) {
         return res.status(401).json({ success: false, message: 'Unauthorized' });
@@ -15,6 +16,7 @@ export const createTask = async(req, res) => {
         return res.status(400).json({success: false, message: "No task entered"});
     }
 
+    // Add the user id and family group to each new task
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET); 
     const userId = decoded._id; 
     const newTask = new Task({task: task.task, user_id: userId, family_id: decoded.familyGroup});
@@ -43,7 +45,7 @@ export const getTasks = async (req, res) => {
         const decodedPayload = JSON.parse(atob(payload));
         const userId = decodedPayload._id
         const familyId = decodedPayload.familyGroup
-        // Fetch tasks for the specific user
+        // Fetch tasks for the specific user or family
         if(familyId != null) {
             const tasks = await Task.find({ family_id: familyId }); 
             res.status(200).json({ success: true, data: tasks });
@@ -90,6 +92,7 @@ export const deleteTask = async(req, res) => {
     }
 };
 
+// Updates all task by users ID when they join a family group
 export const updateByID = async(req, res) => {
     try {
         const { userId } = req.params;
