@@ -9,6 +9,7 @@ export default function DeletePage() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+    // Deletes account on button click
     const deleteOnClick = () => {
       const token = localStorage.getItem('token')
       console.log("Token:", token)
@@ -35,6 +36,7 @@ export default function DeletePage() {
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
 
+// Delete users
 function deleteUser(id) {
   axios
       .delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`)
