@@ -2,14 +2,15 @@ import Token from "../models/Token.js";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
+// Creates a token
 export const createToken = async(req, res) => {
-    const {username, _id} = req.body;
+    const {username, password, familyGroup, _id} = req.body;
     if (!username) {
         return res.status(400).json({success: false, message: "No username and password"});
     }
 
     const accessToken = jwt.sign( {username, _id}, process.env.TOKEN_SECRET);
-    const refreshToken = jwt.sign( {username, _id} , process.env.REFRESH_TOKEN);
+    const refreshToken = jwt.sign( {username, _id} , process.env.REFRESH_TOKEN)
 
     try {
         const existingToken = await Token.findOne({ user_id: _id });
@@ -34,6 +35,7 @@ export const createToken = async(req, res) => {
     }
 };
 
+// Gets token from database
 export const getToken = async(req, res) => {
     try {
         const users = await Token.find();
@@ -45,7 +47,7 @@ export const getToken = async(req, res) => {
     }
 };
 
-// Update User
+// Updates token
 export const updateToken = async(req, res) => {
     const { id } = req.params;
     const token = req.body;
@@ -64,6 +66,7 @@ export const updateToken = async(req, res) => {
     }
 };
 
+// Deletes token
 export const deleteToken = async(req, res) => {
     const { id } = req.params;
 

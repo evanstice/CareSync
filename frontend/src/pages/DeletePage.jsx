@@ -9,11 +9,14 @@ export default function DeletePage() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+    // Deletes account on button click
     const deleteOnClick = () => {
-    // Fix this with user auth
-    const user = users.find(u => u.password === password);
-    if(user) {
-      deleteUser(user._id);
+      const token = localStorage.getItem('token')
+      console.log("Token:", token)
+      const [header, payload, signature] = token.split('.')
+      const decodedPayload = JSON.parse(atob(payload));
+    if(decodedPayload) {
+      deleteUser(decodedPayload._id);
       navigate('/login');
     }
     else {
@@ -33,6 +36,7 @@ export default function DeletePage() {
         .catch((error) => console.error('Error fetching users:', error.message))
 }, [])
 
+// Delete users
 function deleteUser(id) {
   axios
       .delete(`${import.meta.env.VITE_API_URL}/api/users/${id}`)
