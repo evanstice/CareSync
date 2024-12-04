@@ -18,6 +18,7 @@ export const createToken = async(req, res) => {
             existingToken.token = accessToken;
             existingToken.refresh_token = refreshToken;
             await existingToken.save();
+            return res.status(200).json({ success: true, data: existingToken });
         }
 
         const newToken = new Token({
