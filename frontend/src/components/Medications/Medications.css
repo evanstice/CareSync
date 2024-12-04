@@ -64,7 +64,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     cursor: pointer;
 }
 
-.task-list-view {
+.medication-list-view {
     margin-left: 0.75rem; 
     margin-right: 0.75rem; 
     max-height: 55vh;  
@@ -76,7 +76,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     border-radius: 10px;
 }
 
-.single-task {
+.single-medication {
     border: 1px solid #e5e7eb;
     font-size: 14px; 
     padding: 0.25rem;
@@ -88,7 +88,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     background-color: #a2b9c9;
 }
 
-.task-title {
+.medication-title {
     text-align: left;
     width: 40%;
     color: white;
@@ -116,12 +116,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     white-space: nowrap;
 }
 
-.task-options-button {
+.medication-options-button {
     flex: 1;
     text-align: right;
 }
 
-.task-view-labels {
+.medication-view-labels {
     margin-left: 0.75rem; 
     margin-right: 0.75rem; 
     height: 20px;
@@ -135,7 +135,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     justify-content: baseline;
 }
 
-.task-title-label {
+.medication-title-label {
     padding-left: 20px;
     color: white;
     text-align: left;
@@ -143,7 +143,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     width: 40%;
 }
 
-.task-date-label {
+.medication-date-label {
     color: white;
     text-align: left;
     width: 20%;
@@ -152,7 +152,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     flex: 1;
 }
 
-.task-member-label {
+.medication-member-label {
     color: white;
     padding-left: 35px;
     text-align: left;
