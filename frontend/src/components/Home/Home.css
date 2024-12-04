@@ -1,0 +1,87 @@
+.content-wrapper {
+    margin-top: 85px;
+    display: grid;
+    gap: 20px;
+    padding: 20px;
+    grid-template-columns: repeat(2, minmax(500px, 1fr)); /* 2 columns layout */
+}
+
+@media (max-width: 1000px) {
+    .content-wrapper {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        gap: 20px;
+    }
+}
+
+.welcome-block-bg {
+    max-width: 35rem;
+    background-color: #99afbf;
+    border-radius: 20px;
+    margin: auto;
+    height: 13rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.3));
+}
+
+.today-block-bg {
+    max-width: 35rem;
+    background-color: #99afbf;
+    border-radius: 20px;
+    margin: auto;
+    max-height: 35rem; 
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.3));
+}
+
+@media (max-width: 1000px) {
+    .today-block-bg {
+        max-height: 25rem;
+    }
+}
+
+/* Text styling */
+.welcome-block-title {
+    color: white;
+    display: flex;
+    font-weight: 600;
+    font-size: 3rem;
+    padding-left: 1.5rem;
+    padding-top: 0.5rem;
+}
+
+.welcome-block-subtitle {
+    color: white;
+    font-weight: 300;
+    font-size: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.progress-bar-container {
+    width: 92%;
+    height: 40px;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 20px auto; /* Centers the progress bar horizontally */
+    display: flex; /* Flexbox layout for centering */
+  }
+  
+  .progress-bar {
+    align-items: left;
+    height: 100%;
+    background-image: linear-gradient(rgb(78, 94, 134), rgb(96, 126, 162));
+    transition: width 0.3s ease-in-out;
+    width: 30%
+  }
+
+  .hand-icon {
+    padding-top: 5px;
+    padding-right: 15px;
+  }
+
+  .today-icon {
+    padding-top: 7px;
+    padding-right: 15px;
+  }
