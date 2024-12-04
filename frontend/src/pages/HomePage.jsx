@@ -1,5 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../components/Navbar/NavBar';
+import WelcomeBlock from '../components/Home/WelcomeBlock'
+import TodayBlock from '../components/Home/TodayBlock'
+import ContentWrapper from '../components/Home/ContentWrapper';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -9,35 +12,14 @@ const Home = () => {
     navigate('/login'); // Redirect to login after logging out
   };
 
-  const styles = {
-    container: {
-      textAlign: 'center',
-      padding: '20px',
-    },
-    button: {
-      float: 'right',
-      fontSize: '100%',
-    },
-    h1: {
-      backgroundColor: 'aquamarine',
-      fontSize: '400%',
-      padding: '20px',
-    },
-    h2: {
-      backgroundColor: 'mediumseagreen',
-      fontSize: '300%',
-      padding: '20px',
-      margin: '20px 0',
-    },
-    link: {
-      color: 'black',
-      textDecoration: 'none',
-    },
-  };
+  const items = [<WelcomeBlock key="1" />, <TodayBlock key="2" />];
 
   return (
     <>
-    <div className='navbar-wrapper'>
+      <div className="App">
+        <ContentWrapper items={items} />
+      </div>
+      <div className='navbar-wrapper'>
         <NavBar />
       </div>
     </>
