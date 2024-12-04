@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react'
 import NavBar from '../components/Navbar/NavBar';
 
 export default function UpdatePage() {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [tokens, setTokens] = useState([]);
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [passMessage, setPassMessage] = useState('');
@@ -12,9 +14,41 @@ export default function UpdatePage() {
   const [passcode, setPasscode] = useState('');
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+    const token = localStorage.getItem('token');
+    getTasks(token);
+    // Get all tokens from database
+    axios
+        .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
+        .then((res) => {
+            console.log('Fetched tokens:', res.data.data)
+            setTokens(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching tokens:', error.message))
+}, [])
+    // Gets all tasks from database
+    function getTasks(token) {
+      axios
+        .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then((res) => {
+          console.log('Fetched tasks:', res.data.data)
+          setTasks(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching tasks:', error.message))
+        }
+
+  // Updates password on button press
   const updateOnClick = () => {
-    // Need to update based on current users password (user auth)
-    const user = users.find(u => u.password === oldPassword);  
+    // Verfiies token
+    const token = localStorage.getItem('token')
+    const [header, payload, signature] = token.split('.')
+    const decodedPayload = JSON.parse(atob(payload));
+    // Checks if a password hasn't been entered
     if(!newPassword || !oldPassword) 
         {
             setPassMessage(
@@ -23,40 +57,83 @@ export default function UpdatePage() {
                     : "Old password not entered."
             );
         }
-    else if(user) {
-        if(!newPassword.match(/[0-9]/) || !newPassword.match(/[A-Z]/)) {
+    // If the token was decoded
+    else if(decodedPayload) {
+        // Checks if the old password is correct
+        if(decodedPayload.password != oldPassword) {
+          setPassMessage("Old password is incorrect.")
+        }  
+        // Ensures the new password meets the proper conditions
+        else if(!newPassword.match(/[0-9]/) || !newPassword.match(/[A-Z]/)) {
             setPassMessage("Password must have a captial letter and a number.")
         }
+        // Update password
         else {
-            updatePassword(user._id, newPassword);
+            updatePassword(decodedPayload._id, newPassword);
         }
     }
     else {
-        setPassMessage("Old password is incorrect.");
+      setPassMessage("Error: Failed to get account information")
     }
   };
 
+  // Join a family when clicking the button
   const joinOnClick = () => {
-    // Need user auth
+    // Verifies token
+    const token = localStorage.getItem('token')
+    const [header, payload, signature] = token.split('.')
+    const decodedPayload = JSON.parse(atob(payload));
+    // Requires family code to be 5 numbers
     if(passcode.length != 5 || !passcode.match(/[0-9]/)) {
       setFamMessage("Family code needs to be 5 numbers")  
     }
     else {
-      updateFam("6740b0b97a668227e37ba715", passcode);
-    }
+      // Updates the user, token, and tasks with new family ID
+      updateFam(decodedPayload._id, passcode);
+      decodedPayload.familyGroup = passcode;
+      updateTask(decodedPayload._id, passcode);
+      localStorage.removeItem('token');
+      const the_token = tokens.find(u => u.token === token);
+      const id = the_token._id
+      deleteToken(id)
+      createToken(decodedPayload);
   };
+};
 
-  // GET (getUsers): load users from the backend
-  useEffect(() => {
-    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
-    axios
-        .get(`${import.meta.env.VITE_API_URL}/api/users`)
-        .then((res) => {
-            console.log('Fetched users:', res.data.data)
-            setUsers(res.data.data)
-        })
-        .catch((error) => console.error('Error fetching users:', error.message))
-}, [])
+// Sends a requst to update all tasks accoiated with a user ID
+function updateTask(userId, familyId) {
+  axios
+    .put(`${import.meta.env.VITE_API_URL}/api/tasks/updateByUser/${userId}`, { family_id: familyId })
+    .then((res) => {
+      console.log('Tasks updated successfully:', res.data);
+      // Optionally, you can update the local state here if needed
+    })
+    .catch((error) => console.error('Error updating tasks:', error.message));
+}
+
+// Creates a token
+function createToken(tokenData) {
+  axios
+  .post(`${import.meta.env.VITE_API_URL}/api/tokens`, tokenData)
+  .then(response => {
+  // Handle successful response
+      const token = response.data.data.token;  // Assuming the response includes the token
+      localStorage.setItem('token', token);
+  console.log('Token created:', response.data);
+})
+.catch((error) => {
+  console.log('Error: Failed to create token')
+})
+};
+
+// Deletes a token
+function deleteToken(id) {
+  axios
+      .delete(`${import.meta.env.VITE_API_URL}/api/tokens/${id}`)
+      .catch((error) => { 
+        console.error('Error deleting user:', error.message);
+      })
+}
 
      // Send PUT request to backend API to update a specific password -- .then() handles response from the server
      function updatePassword(id, updatedPassword) {
@@ -99,7 +176,7 @@ export default function UpdatePage() {
                     setFamMessage('Failed to add family');
                   })
           }
-
+  
   const styles = {
     body: {
       display: 'flex',

@@ -30,7 +30,7 @@ export default function CreateAccount() {
       }
       else{
       createUser({username, password});
-      navigate('/home');
+      navigate('/login');
       }
     }
   };
@@ -52,6 +52,7 @@ export default function CreateAccount() {
     .post(`${import.meta.env.VITE_API_URL}/api/users`, userData)
     .then(response => {
     // Handle successful response
+    localStorage.setItem('user', the_user);
     console.log('Account created:', response.data);
   })
   .catch((error) => {
