@@ -4,17 +4,15 @@ const tokenSchema = new mongoose.Schema({
     token: {
         type: String,
         required: true,
-        unique: true
     },
     refresh_token: {
         type: String,
         required: true,
-        unique: true
     },
     user_id: {
         type: String,
         required: true,
-        unique: true
+        unique: true // one active token per user session, but tokens don't have to be unique globally
     },
     expiresAt: {
         type: Date,
