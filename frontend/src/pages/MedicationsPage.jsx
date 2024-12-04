@@ -1,85 +1,85 @@
-import Tasks from '../components/Tasks/Tasks'
+import Medications from '../components/Medications/Medications.jsx'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import NavBar from '../components/Navbar/NavBar';
 
-export default function TasksPage() {
-    const [tasks, setTasks] = useState([])
+export default function MedicationsPage() {
+    const [medications, setMedications] = useState([])
 
-    // GET (getTasks): load tasks from the backend
+    // GET (getMedications): load meds from the backend
     useEffect(() => {
         console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
         const token = localStorage.getItem('token');
-        getTasks(token)
+        getMedications(token)
     }, [])
     
-    function getTasks(token) {
+    function getMedications(token) {
         axios
-        .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+        .get(`${import.meta.env.VITE_API_URL}/api/Medications`, {
             headers: {
                 Authorization: `Bearer ${token}` // Make sure 'Bearer' is included
             }
         })
         .then((res) => {
-            console.log('Fetched tasks:', res.data.data)
-            setTasks(res.data.data)
+            console.log('Fetched Medications:', res.data.data)
+            setMedications(res.data.data)
         })
-        .catch((error) => console.error('Error fetching tasks:', error.message))
+        .catch((error) => console.error('Error fetching Medications:', error.message))
     }
 
-    // POST (createTask)
-    function createTask(newTask, token) {
+    // POST (createMedication)
+    function createMedication(newMedication, token) {
         console.log("token:", token)
         axios
-            .post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask, {
+            .post(`${import.meta.env.VITE_API_URL}/api/Medications`, newMedication, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include 'Bearer' token for authorization
                 }
             })
             .then((res) => {
-                console.log('Created task:', res.data.data);
-                setTasks((currTasks) => [...currTasks, res.data.data]);
+                console.log('Created Medication:', res.data.data);
+                setMedications((currMedications) => [...currMedications, res.data.data]);
             })
-            .catch((error) => console.error('Error creating task:', error.message));
+            .catch((error) => console.error('Error creating Medication:', error.message));
     }
     
 
-    // Send PUT request to backend API to update a specific task -- .then() handles response from the server
-    function updateTask(id, updatedData) {
+    // Send PUT request to backend API to update a specific Medication -- .then() handles response from the server
+    function updateMedication(id, updatedData) {
         axios
-            .put(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, updatedData)
+            .put(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`, updatedData)
             .then((res) => {
-                setTasks(currTasks =>
-                    currTasks.map(task => {
-                        if (task._id === id) {
-                            return {...task, ...updatedData};
+                setMedications(currMedications =>
+                    currMedications.map(Medication => {
+                        if (Medication._id === id) {
+                            return {...Medication, ...updatedData};
                         }
-                        return task
+                        return Medication
                     })
                 )
             })
-            .catch((error) => console.error('Error updating task:', error.message))
+            .catch((error) => console.error('Error updating Medication:', error.message))
     }
 
-    // DELETE (deleteTask)
-    function deleteTask(id) {
+    // DELETE (deleteMedication)
+    function deleteMedication(id) {
         axios
-            .delete(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`)
+            .delete(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`)
             .then(() => {
-                setTasks(currTasks => {
-                    return currTasks.filter(task => task._id !== id)
+                setMedications(currMedications => {
+                    return currMedications.filter(Medication => Medication._id !== id)
                 })
             })
-            .catch((error) => console.error('Error deleting task:', error.message))
+            .catch((error) => console.error('Error deleting Medication:', error.message))
     }
 
     return (
     <>
-        <Tasks
-            tasks={tasks}
-            createTask={createTask}
-            updateTask={updateTask}
-            deleteTask={deleteTask}
+        <Medications
+            Medications={Medications}
+            createMedication={createMedication}
+            updateMedication={updateMedication}
+            deleteMedication={deleteMedication}
         />
         <div className='navbar-wrapper'>
         <NavBar />
