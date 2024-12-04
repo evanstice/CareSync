@@ -9,14 +9,25 @@ export const createToken = async(req, res) => {
     }
 
     const accessToken = jwt.sign( {username, _id}, process.env.TOKEN_SECRET);
-    const refresh_token = jwt.sign( {username, _id} , process.env.REFRESH_TOKEN);
-    const newToken = new Token({ token: accessToken, user_id: _id, refresh_token: refresh_token });
-
+    const refreshToken = jwt.sign( {username, _id} , process.env.REFRESH_TOKEN);
 
     try {
+        const existingToken = await Token.findOne({ user_id: _id });
+        if (existingToken) {
+            existingToken.token = accessToken;
+            existingToken.refresh_token = refreshToken;
+            await existingToken.save();
+        }
+
+        const newToken = new Token({
+            token: accessToken,
+            user_id: _id,
+            refresh_token: refreshToken,
+        });
         await newToken.save();
         res.status(201).json({ success: true, data: newToken});
     }
+    
     catch (error) {
         console.error("Error creating token:", error.message);
         res.status(500).json({success: false, message: "Error adding token"});
