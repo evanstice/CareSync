@@ -31,7 +31,7 @@ export default function MedicationsPage() {
     function createMedication(newMedication, token) {
         console.log("token:", token)
         axios
-            .post(`${import.meta.env.VITE_API_URL}/api/Medications`, newMedication, {
+            .post(`${import.meta.env.VITE_API_URL}/api/medications`, newMedication, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include 'Bearer' token for authorization
                 }
@@ -47,7 +47,7 @@ export default function MedicationsPage() {
     // Send PUT request to backend API to update a specific Medication -- .then() handles response from the server
     function updateMedication(id, updatedData) {
         axios
-            .put(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`, updatedData)
+            .put(`${import.meta.env.VITE_API_URL}/api/medications/${id}`, updatedData)
             .then((res) => {
                 setMedications(currMedications =>
                     currMedications.map(medication => {
