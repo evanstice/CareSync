@@ -15,7 +15,7 @@ export default function MedicationsPage() {
     
     function getMedications(token) {
         axios
-        .get(`${import.meta.env.VITE_API_URL}/api/Medications`, {
+        .get(`${import.meta.env.VITE_API_URL}/api/medications`, {
             headers: {
                 Authorization: `Bearer ${token}` // Make sure 'Bearer' is included
             }
@@ -31,7 +31,7 @@ export default function MedicationsPage() {
     function createMedication(newMedication, token) {
         console.log("token:", token)
         axios
-            .post(`${import.meta.env.VITE_API_URL}/api/Medications`, newMedication, {
+            .post(`${import.meta.env.VITE_API_URL}/api/medications`, newMedication, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include 'Bearer' token for authorization
                 }
@@ -47,14 +47,14 @@ export default function MedicationsPage() {
     // Send PUT request to backend API to update a specific Medication -- .then() handles response from the server
     function updateMedication(id, updatedData) {
         axios
-            .put(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`, updatedData)
+            .put(`${import.meta.env.VITE_API_URL}/api/medications/${id}`, updatedData)
             .then((res) => {
                 setMedications(currMedications =>
-                    currMedications.map(Medication => {
-                        if (Medication._id === id) {
-                            return {...Medication, ...updatedData};
+                    currMedications.map(medication => {
+                        if (medication._id === id) {
+                            return {...medication, ...updatedData};
                         }
-                        return Medication
+                        return medication
                     })
                 )
             })
@@ -64,10 +64,10 @@ export default function MedicationsPage() {
     // DELETE (deleteMedication)
     function deleteMedication(id) {
         axios
-            .delete(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`)
+            .delete(`${import.meta.env.VITE_API_URL}/api/medications/${id}`)
             .then(() => {
                 setMedications(currMedications => {
-                    return currMedications.filter(Medication => Medication._id !== id)
+                    return currMedications.filter(medication => medication._id !== id)
                 })
             })
             .catch((error) => console.error('Error deleting Medication:', error.message))
@@ -76,7 +76,7 @@ export default function MedicationsPage() {
     return (
     <>
         <Medications
-            Medications={Medications}
+            medications={medications}
             createMedication={createMedication}
             updateMedication={updateMedication}
             deleteMedication={deleteMedication}

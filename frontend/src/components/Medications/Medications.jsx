@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { MdTask } from "react-icons/md";
 import './medications.css'
-import medicationsView from './medicationsView'
+import MedicationsView from './MedicationsView'
 import axios from 'axios'
-import Optionsmenu from './Optionsmenu'
+import OptionsMenu from './OptionsMenu'
 
-export default function medications( { medications, createmedication, updatemedication, deletemedication }) {
-    const [newmedication, setNewmedication] = useState("")
+export default function medications( { medications, createMedication, updateMedication, deleteMedication }) {
+    const [newMedication, setNewMedication] = useState("")
 
     function handleSubmit(event) {
         event.preventDefault();
-        if (newmedication === "") return;
+        if (newMedication === "") return;
     
         const token = localStorage.getItem('token');
-        createmedication({ medication: newmedication }, token);
-        setNewmedication("");
+        createMedication({ medication: newMedication }, token);
+        setNewMedication("");
     }
     
     
@@ -32,8 +32,8 @@ export default function medications( { medications, createmedication, updatemedi
                 <div className='input-bar-type'>
                     <input
                         placeholder='Enter a medication...'
-                        value={newmedication}
-                        onChange={(event) => setNewmedication(event.target.value)}
+                        value={newMedication}
+                        onChange={(event) => setNewMedication(event.target.value)}
                     />
                 </div>
                 <div className='input-bar-button'>
@@ -47,10 +47,10 @@ export default function medications( { medications, createmedication, updatemedi
                     <div className='checkmark'>
                     ✓
                     </div>
-                medication
+                Medication
                 </div>
                 <div className='medication-date-label'>
-                    Complete By
+                    Dose
                 </div>
                 <div className='medication-member-label'>
                     Assigned To
@@ -60,10 +60,10 @@ export default function medications( { medications, createmedication, updatemedi
                 </div>
             </div>
             <div className='medications-view-wrapper'>
-                <medicationsView
+                <MedicationsView
                     medications={medications}
-                    updatemedication={updatemedication}
-                    deletemedication={deletemedication}
+                    updatemedication={updateMedication}
+                    deletemedication={deleteMedication}
                 />
             </div>
         </div>
