@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import NavBar from '../components/Navbar/NavBar';
 
 export default function MedicationsPage() {
+    console.log('MedicationsPage component mounted');
+
     const [medications, setMedications] = useState([])
 
     // GET (getMedications): load meds from the backend
@@ -29,7 +31,6 @@ export default function MedicationsPage() {
 
     // POST (createMedication)
     function createMedication(newMedication, token) {
-        console.log("token:", token)
         axios
             .post(`${import.meta.env.VITE_API_URL}/api/medications`, newMedication, {
                 headers: {
@@ -69,12 +70,22 @@ export default function MedicationsPage() {
                 setMedications(currMedications => {
                     return currMedications.filter(medication => medication._id !== id)
                 })
+                console.log('Deleted medication with ID: ${id}')
+
             })
             .catch((error) => console.error('Error deleting Medication:', error.message))
     }
 
+
     return (
     <>
+        {console.log('Props being passed to Medications:', {
+            medications,
+            createMedication,
+            updateMedication,
+            deleteMedication,
+        })}
+        
         <Medications
             medications={medications}
             createMedication={createMedication}

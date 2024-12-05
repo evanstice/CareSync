@@ -1,12 +1,11 @@
 import { MedicationItem } from './MedicationItem'
 import './Medications.css'
 
-// Medications, updateMedication, and deleteMedication are taken as "props"
+// medications, updateMedication, and deleteMedication are taken as "props"
 // --> passes list of Medications to the function and creates a MedicationItem for each one
 export default function MedicationsView({ medications=[], updateMedication, deleteMedication }) {
-    console.log('Medications array fetched from DB:', medications)
     return (
-        <div className='Medication-list-view'>
+        <div className='medication-list-view'>
             {medications.map(medication => {
                 return (
                     <MedicationItem

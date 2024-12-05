@@ -5,7 +5,13 @@ import MedicationsView from './MedicationsView'
 import axios from 'axios'
 import OptionsMenu from './OptionsMenu'
 
-export default function medications( { medications, createMedication, updateMedication, deleteMedication }) {
+export default function Medications({ medications, createMedication, updateMedication, deleteMedication }) {
+    console.log('Received props in Medications:', {
+        medications,
+        createMedication,
+        updateMedication,
+        deleteMedication,
+    });
     const [newMedication, setNewMedication] = useState("")
 
     function handleSubmit(event) {
@@ -50,7 +56,7 @@ export default function medications( { medications, createMedication, updateMedi
                 Medication
                 </div>
                 <div className='medication-date-label'>
-                    Dose
+                    Dose & Frequency
                 </div>
                 <div className='medication-member-label'>
                     Assigned To
@@ -62,8 +68,8 @@ export default function medications( { medications, createMedication, updateMedi
             <div className='medications-view-wrapper'>
                 <MedicationsView
                     medications={medications}
-                    updatemedication={updateMedication}
-                    deletemedication={deleteMedication}
+                    updateMedication={updateMedication}
+                    deleteMedication={deleteMedication}
                 />
             </div>
         </div>

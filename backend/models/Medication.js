@@ -1,13 +1,15 @@
 import mongoose from 'mongoose';
 
 const medicationSchema = new mongoose.Schema({
-    medName: {
+    medication: {
         type: String,
         required: true
     },
     dose: {
         type: String,
-        required: true
+    },
+    frequency: {
+        type: String,
     },
     familyMember: {
         type: String
