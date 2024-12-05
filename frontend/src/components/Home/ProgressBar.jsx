@@ -11,5 +11,3 @@ function ProgressBar({ progress }) {
     </div>
   );
 }
-
-export default ProgressBar;

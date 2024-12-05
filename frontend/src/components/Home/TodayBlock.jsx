@@ -30,5 +30,3 @@ function TodayBlock() {
         </>
     );
 }
-
-export default TodayBlock;
