@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdTask } from "react-icons/md";
+import { CgPill } from "react-icons/cg";
 import './medications.css'
 import MedicationsView from './MedicationsView'
 import axios from 'axios'
@@ -27,8 +27,8 @@ export default function Medications({ medications, createMedication, updateMedic
     return (
         <div className='background'>
             <div className='title'>
-                <div className='title-icon'>
-                    <MdTask />
+            <div className='title-icon'>
+                    <CgPill />
                 </div>
                 <div className='title-text'>
                     Medications
