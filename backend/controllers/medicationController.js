@@ -9,19 +9,19 @@ export const createMedication = async(req, res) => {
         return res.status(401).json({ success: false, message: 'Unauthorized' });
    }
 
-    const med = req.body;
+    const medication = req.body;
     console.log("Request body:", req.body)
-    if (!med.medName) {
+    if (!medication.medication) {
         return res.status(400).json({success: false, message: "No medication entered"});
     }
 
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET); 
     const userId = decoded._id; 
-    const newMed = new Medication({med: med.medName, user_id: userId});
+    const newMedication = new Medication({ medication: medication.medication, user_id: userId,  family_id: decoded.familyGroup });
 
     try {
-        await newMed.save();
-        res.status(201).json({ success: true, data: newMed });
+        await newMedication.save();
+        res.status(201).json({ success: true, data: newMedication });
     }
     catch (error) {
         console.error("Error adding medication:", error.message);
@@ -54,15 +54,15 @@ export const getMedications = async (req, res) => {
 // Update a medication
 export const updateMedication = async(req, res) => {
     const { id } = req.params;
-    const med = req.body;
+    const medication = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ success: false, message: "Medication ID Does Not Exist" });
     }
 
     try {
-        const updatedMed = await Medication.findByIdAndUpdate(id, med, { new: true }) // gives updated medication object
-        res.status(200).json({success: true, data: updatedMed})
+        const updatedMedication = await Medication.findByIdAndUpdate(id, medication, { new: true }) // gives updated medication object
+        res.status(200).json({success: true, data: updatedMedication })
     }
     catch (error) {
         console.error("Error updating product:", error.message);
@@ -74,7 +74,8 @@ export const updateMedication = async(req, res) => {
 export const deleteMedication = async(req, res) => {
     const { id } = req.params;
     try {
-        
+        await Medication.findByIdAndDelete(id);
+        res.status(200).json({success: true, message: "Medication successfully deleted"})
     }
     catch (error) {
         console.error("Error deleting medication:", error.message);
