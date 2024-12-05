@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import tokenRoutes from "./routes/tokenRoutes.js";
+import medicationRoutes from "./routes/medicationRoute.js";
 import cors from "cors"
 
 dotenv.config();
@@ -28,6 +29,7 @@ const connectDB = async() => {
 app.use("/api/tasks", taskRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/tokens", tokenRoutes)
+app.use("/api/medications", medicationRoutes)
 
 app.listen(PORT, () => {
     connectDB();
