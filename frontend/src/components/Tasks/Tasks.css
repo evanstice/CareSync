@@ -1,6 +1,7 @@
 .background {
     width: 90%;
     max-width: 80rem;
+    min-height: 35rem;
     background-color: #99afbf;
     border-radius: 20px;
     margin:auto;
@@ -67,7 +68,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 .task-list-view {
     margin-left: 0.75rem; 
     margin-right: 0.75rem; 
-    max-height: 55vh;  
+    height: 55vh;  
     overflow: scroll;  
     display: flex;   
     flex-direction: column;

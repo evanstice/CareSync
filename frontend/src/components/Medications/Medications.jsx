@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MdTask } from "react-icons/md";
+import { CgPill } from "react-icons/cg";
 import './medications.css'
 import MedicationsView from './MedicationsView'
 import axios from 'axios'
@@ -21,11 +21,11 @@ export default function medications( { medications, createMedication, updateMedi
     return (
         <div className='background'>
             <div className='title'>
-                <div className='title-icon'>
-                    <medication />
+            <div className='title-icon'>
+                    <CgPill />
                 </div>
                 <div className='title-text'>
-                    <MdTask />
+                    Medications
                 </div>
             </div>
             <form onSubmit={handleSubmit} className='input-bar'>

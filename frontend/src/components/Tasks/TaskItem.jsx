@@ -97,7 +97,12 @@ export function TaskItem({ task, _id, completed, familyMember, needByDate, updat
             <div className="family-member">{familyMember}</div>
             <div className="task-options-button" style={{ position: 'relative' }}>
                 <IconButton onClick={toggleOptionsMenu}>
-                    <MoreVertIcon fontSize='small' />
+                    <MoreVertIcon sx={{
+                    color: 'white',
+                    '&.Mui-checked': {
+                        color: 'white',
+                    },
+                }}fontSize='small' />
                 </IconButton>
                 {isOpen && (
                     <div style={{ position: 'absolute', right: 0, top: '100%' }}>
