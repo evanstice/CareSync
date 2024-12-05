@@ -6,7 +6,6 @@ import HomePage from './pages/HomePage';
 import FamilyPage from './pages/FamilyPage';
 import DeletePage from './pages/DeletePage';
 import UpdatePage from './pages/UpdatePage';
-import MedicationsPage from './pages/MedicationsPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {

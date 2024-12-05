@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import './Home.css';
 import TasksView from '../Tasks/TasksView';
 
-function TodayBlock() {
+export default function TodayBlock() {
     const [currentDate, setCurrentDate] = useState('');
 
     useEffect(() => {
