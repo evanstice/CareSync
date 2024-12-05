@@ -9,15 +9,27 @@ export const createToken = async(req, res) => {
         return res.status(400).json({success: false, message: "No username and password"});
     }
 
-    const accessToken = jwt.sign( {username, password, familyGroup, _id}, process.env.TOKEN_SECRET);
-    const refresh_token = jwt.sign( {username, password, familyGroup, _id} , process.env.REFRESH_TOKEN);
-    const newToken = new Token({ token: accessToken, user_id: _id, refresh_token: refresh_token });
-
+    const accessToken = jwt.sign( {username, _id}, process.env.TOKEN_SECRET);
+    const refreshToken = jwt.sign( {username, _id} , process.env.REFRESH_TOKEN)
 
     try {
+        const existingToken = await Token.findOne({ user_id: _id });
+        if (existingToken) {
+            existingToken.token = accessToken;
+            existingToken.refresh_token = refreshToken;
+            await existingToken.save();
+            return res.status(200).json({ success: true, data: existingToken });
+        }
+
+        const newToken = new Token({
+            token: accessToken,
+            user_id: _id,
+            refresh_token: refreshToken,
+        });
         await newToken.save();
         res.status(201).json({ success: true, data: newToken});
     }
+    
     catch (error) {
         console.error("Error creating token:", error.message);
         res.status(500).json({success: false, message: "Error adding token"});

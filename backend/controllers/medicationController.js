@@ -4,13 +4,12 @@ import jwt from "jsonwebtoken";
 
 // Create a new medication
 export const createMedication = async(req, res) => {
-    // Get the users token
     const token = req.header('Authorization')?.split(' ')[1]; // 'Bearer <token>'
     if (!token) {
         return res.status(401).json({ success: false, message: 'Unauthorized' });
    }
-
-    const medication = req.body;
+  
+    const med = req.body;
     console.log("Request body:", req.body)
     if (!medication.medication) {
         return res.status(400).json({success: false, message: "No medication entered"});
@@ -26,7 +25,7 @@ export const createMedication = async(req, res) => {
         res.status(201).json({success: true, data: newMed});
     }
     catch (error) {
-        console.error("Error creating medication:", error.message);
+        console.error("Error adding medication:", error.message);
         res.status(500).json({success: false, message: "Error adding medication"});
     }
 };
@@ -41,8 +40,7 @@ export const getMedications = async (req, res) => {
 
     try {
         // Verify the token
-        const [header, payload, signature] = token.split('.')
-        const decodedPayload = JSON.parse(atob(payload));
+        const decodedPayload = jwt.verify(token, process.env.TOKEN_SECRET); // Use your secret key
         const userId = decodedPayload._id
         const familyId = decodedPayload.familyGroup
         // Fetch medications for the specific user or family
@@ -59,7 +57,6 @@ export const getMedications = async (req, res) => {
         res.status(500).json({ success: false, message: 'Server error' });
     }
 };
-
 
 // Update a medication
 export const updateMedication = async(req, res) => {
