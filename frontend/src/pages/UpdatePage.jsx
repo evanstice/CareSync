@@ -18,7 +18,6 @@ export default function UpdatePage() {
     console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
     const token = localStorage.getItem('token');
     getTasks(token);
-    // Get all tokens from database
     axios
         .get(`${import.meta.env.VITE_API_URL}/api/tokens`)
         .then((res) => {
@@ -27,7 +26,7 @@ export default function UpdatePage() {
         })
         .catch((error) => console.error('Error fetching tokens:', error.message))
 }, [])
-    // Gets all tasks from database
+
     function getTasks(token) {
       axios
         .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
@@ -42,13 +41,10 @@ export default function UpdatePage() {
         .catch((error) => console.error('Error fetching tasks:', error.message))
         }
 
-  // Updates password on button press
   const updateOnClick = () => {
-    // Verfiies token
     const token = localStorage.getItem('token')
     const [header, payload, signature] = token.split('.')
     const decodedPayload = JSON.parse(atob(payload));
-    // Checks if a password hasn't been entered
     if(!newPassword || !oldPassword) 
         {
             setPassMessage(
@@ -57,38 +53,27 @@ export default function UpdatePage() {
                     : "Old password not entered."
             );
         }
-    // If the token was decoded
     else if(decodedPayload) {
-        // Checks if the old password is correct
-        if(decodedPayload.password != oldPassword) {
-          setPassMessage("Old password is incorrect.")
-        }  
-        // Ensures the new password meets the proper conditions
-        else if(!newPassword.match(/[0-9]/) || !newPassword.match(/[A-Z]/)) {
+        if(!newPassword.match(/[0-9]/) || !newPassword.match(/[A-Z]/)) {
             setPassMessage("Password must have a captial letter and a number.")
         }
-        // Update password
         else {
             updatePassword(decodedPayload._id, newPassword);
         }
     }
     else {
-      setPassMessage("Error: Failed to get account information")
+        setPassMessage("Old password is incorrect.");
     }
   };
 
-  // Join a family when clicking the button
   const joinOnClick = () => {
-    // Verifies token
     const token = localStorage.getItem('token')
     const [header, payload, signature] = token.split('.')
     const decodedPayload = JSON.parse(atob(payload));
-    // Requires family code to be 5 numbers
     if(passcode.length != 5 || !passcode.match(/[0-9]/)) {
       setFamMessage("Family code needs to be 5 numbers")  
     }
     else {
-      // Updates the user, token, and tasks with new family ID
       updateFam(decodedPayload._id, passcode);
       decodedPayload.familyGroup = passcode;
       updateTask(decodedPayload._id, passcode);
@@ -101,7 +86,6 @@ export default function UpdatePage() {
   };
 };
 
-// Sends a requst to update all tasks accoiated with a user ID
 function updateTask(userId, familyId) {
   axios
     .put(`${import.meta.env.VITE_API_URL}/api/tasks/updateByUser/${userId}`, { family_id: familyId })
@@ -111,6 +95,7 @@ function updateTask(userId, familyId) {
     .catch((error) => console.error('Error updating tasks:', error.message));
 }
 
+<<<<<<< HEAD
 // Sends a requst to update all medications accoiated with a user ID
 function updateMed(userId, familyId) {
   axios
@@ -122,6 +107,8 @@ function updateMed(userId, familyId) {
 }
 
 // Creates a token
+=======
+>>>>>>> parent of 1b6312b (Merge pull request #41 from evanstice/frontend-ethan)
 function createToken(tokenData) {
   axios
   .post(`${import.meta.env.VITE_API_URL}/api/tokens`, tokenData)
@@ -136,7 +123,6 @@ function createToken(tokenData) {
 })
 };
 
-// Deletes a token
 function deleteToken(id) {
   axios
       .delete(`${import.meta.env.VITE_API_URL}/api/tokens/${id}`)

@@ -17,7 +17,6 @@ export default function TasksPage() {
     
     function getTasks(token) {
         axios
-        // Sends a request with the token
         .get(`${import.meta.env.VITE_API_URL}/api/tasks`, {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -34,7 +33,6 @@ export default function TasksPage() {
     function createTask(newTask, token) {
         console.log("token:", token)
         axios
-            // Sends request with token
             .post(`${import.meta.env.VITE_API_URL}/api/tasks`, newTask, {
                 headers: {
                     Authorization: `Bearer ${token}` // Include 'Bearer' token for authorization

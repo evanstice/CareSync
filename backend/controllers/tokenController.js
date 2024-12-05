@@ -2,7 +2,6 @@ import Token from "../models/Token.js";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 
-// Creates a token
 export const createToken = async(req, res) => {
     const {username, password, familyGroup, _id} = req.body;
     if (!username) {
@@ -36,7 +35,6 @@ export const createToken = async(req, res) => {
     }
 };
 
-// Gets token from database
 export const getToken = async(req, res) => {
     try {
         const users = await Token.find();
@@ -48,7 +46,7 @@ export const getToken = async(req, res) => {
     }
 };
 
-// Updates token
+// Update User
 export const updateToken = async(req, res) => {
     const { id } = req.params;
     const token = req.body;
@@ -67,7 +65,6 @@ export const updateToken = async(req, res) => {
     }
 };
 
-// Deletes token
 export const deleteToken = async(req, res) => {
     const { id } = req.params;
 

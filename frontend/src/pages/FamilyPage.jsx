@@ -10,6 +10,18 @@ export default function FamilyPage() {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+  // GET (getUsers): load users from the backend
+  useEffect(() => {
+    console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
+    axios
+        .get(`${import.meta.env.VITE_API_URL}/api/users`)
+        .then((res) => {
+            console.log('Fetched users:', res.data.data)
+            setUsers(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching users:', error.message))
+}, [])
+
   const styles = {
     body: {
       display: 'flex',
@@ -91,7 +103,7 @@ export default function FamilyPage() {
           onMouseOver={(e) => (e.target.style.textDecoration = styles.linkHover.textDecoration)}
           onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
         >
-          Update Account
+          Change Password
         </Link>
       </div>
     </div>

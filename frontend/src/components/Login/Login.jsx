@@ -28,7 +28,6 @@ export default function Login() {
 
       if(user) {
         if(user.password === password) {
-            // Creates a token upon succesful login
             createToken(user);
             navigate('/home');
           }
