@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import FamilyPage from './pages/FamilyPage';
 import DeletePage from './pages/DeletePage';
 import UpdatePage from './pages/UpdatePage';
+import MedicationsPage from './pages/MedicationsPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/settings" element={<FamilyPage />} />
         <Route path="/delete-account" element={<DeletePage />} />
         <Route path="/update-account" element={<UpdatePage />} />
+        <Route path="/medications" elment={<MedicationsPage />} />
       </Routes>
     </Router>
   );
