@@ -15,7 +15,7 @@ export default function MedicationsPage() {
     
     function getMedications(token) {
         axios
-        .get(`${import.meta.env.VITE_API_URL}/api/Medications`, {
+        .get(`${import.meta.env.VITE_API_URL}/api/medications`, {
             headers: {
                 Authorization: `Bearer ${token}` // Make sure 'Bearer' is included
             }
@@ -50,11 +50,11 @@ export default function MedicationsPage() {
             .put(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`, updatedData)
             .then((res) => {
                 setMedications(currMedications =>
-                    currMedications.map(Medication => {
-                        if (Medication._id === id) {
-                            return {...Medication, ...updatedData};
+                    currMedications.map(medication => {
+                        if (medication._id === id) {
+                            return {...medication, ...updatedData};
                         }
-                        return Medication
+                        return medication
                     })
                 )
             })
@@ -64,10 +64,10 @@ export default function MedicationsPage() {
     // DELETE (deleteMedication)
     function deleteMedication(id) {
         axios
-            .delete(`${import.meta.env.VITE_API_URL}/api/Medications/${id}`)
+            .delete(`${import.meta.env.VITE_API_URL}/api/medications/${id}`)
             .then(() => {
                 setMedications(currMedications => {
-                    return currMedications.filter(Medication => Medication._id !== id)
+                    return currMedications.filter(medication => medication._id !== id)
                 })
             })
             .catch((error) => console.error('Error deleting Medication:', error.message))
@@ -76,7 +76,7 @@ export default function MedicationsPage() {
     return (
     <>
         <Medications
-            Medications={Medications}
+            medications={medications}
             createMedication={createMedication}
             updateMedication={updateMedication}
             deleteMedication={deleteMedication}

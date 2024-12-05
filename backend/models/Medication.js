@@ -12,9 +12,6 @@ const medicationSchema = new mongoose.Schema({
     familyMember: {
         type: String
     },
-    needByDate: {
-        type: Date
-    },
     completed: {
         type: Boolean,
         default: false,
