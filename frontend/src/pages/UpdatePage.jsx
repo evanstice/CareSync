@@ -92,6 +92,7 @@ export default function UpdatePage() {
       updateFam(decodedPayload._id, passcode);
       decodedPayload.familyGroup = passcode;
       updateTask(decodedPayload._id, passcode);
+      updateMed(decodedPayload._id, passcode);
       localStorage.removeItem('token');
       const the_token = tokens.find(u => u.token === token);
       const id = the_token._id
@@ -106,9 +107,18 @@ function updateTask(userId, familyId) {
     .put(`${import.meta.env.VITE_API_URL}/api/tasks/updateByUser/${userId}`, { family_id: familyId })
     .then((res) => {
       console.log('Tasks updated successfully:', res.data);
-      // Optionally, you can update the local state here if needed
     })
     .catch((error) => console.error('Error updating tasks:', error.message));
+}
+
+// Sends a requst to update all medications accoiated with a user ID
+function updateMed(userId, familyId) {
+  axios
+    .put(`${import.meta.env.VITE_API_URL}/api/medications/updateByUser/${userId}`, { family_id: familyId })
+    .then((res) => {
+      console.log('Medications updated successfully:', res.data);
+    })
+    .catch((error) => console.error('Error updating medications:', error.message));
 }
 
 // Creates a token

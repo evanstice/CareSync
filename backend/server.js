@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import taskRoutes from "./routes/taskRoutes.js";
+import medicationRoutes from "./routes/medicationRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import tokenRoutes from "./routes/tokenRoutes.js";
 import cors from "cors"
@@ -26,6 +27,7 @@ const connectDB = async() => {
 }
 
 app.use("/api/tasks", taskRoutes)
+app.use("/api/medications", medicationRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/tokens", tokenRoutes)
 
@@ -33,5 +35,4 @@ app.listen(PORT, () => {
     connectDB();
     console.log("Server started at http://localhost:4000");
 });
-
 

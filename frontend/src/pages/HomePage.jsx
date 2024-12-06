@@ -16,12 +16,14 @@ const Home = () => {
   };
 
   const [tasks, setTasks] = useState([])
+  const [medications, setMedications] = useState([])
 
     // GET (getTasks): load tasks from the backend
     useEffect(() => {
         console.log("VITE_API_URL:", import.meta.env.VITE_API_URL)
         const token = localStorage.getItem('token');
         getTasks(token);
+        getMedications(token);
     }, [])
     
     function getTasks(token) {
@@ -37,6 +39,20 @@ const Home = () => {
             setTasks(res.data.data)
         })
         .catch((error) => console.error('Error fetching tasks:', error.message))
+    }
+
+    function getMedications(token) {
+        axios
+        .get(`${import.meta.env.VITE_API_URL}/api/medications`, {
+            headers: {
+                Authorization: `Bearer ${token}` // Make sure 'Bearer' is included
+            }
+        })
+        .then((res) => {
+            console.log('Fetched Medications:', res.data.data)
+            setMedications(res.data.data)
+        })
+        .catch((error) => console.error('Error fetching Medications:', error.message))
     }
 
     // POST (createTask)
