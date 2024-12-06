@@ -50,7 +50,7 @@
     top: 0;
     left: -100%;
     border-radius: 40px;
-    transition: 500ms;
+    transition: 500ms ease-in-out;
     filter: drop-shadow(1px 0px 2px rgba(0,0,0,0.2));
 }
 

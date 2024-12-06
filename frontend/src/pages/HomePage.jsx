@@ -54,7 +54,6 @@ const Home = () => {
         })
         .catch((error) => console.error('Error fetching Medications:', error.message))
     }
-
     // POST (createTask)
     function createTask(newTask, token) {
         console.log("token:", token)
