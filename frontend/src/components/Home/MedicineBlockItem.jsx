@@ -1,19 +1,29 @@
-import { Checkbox } from '@mui/material';
-import React, { useState } from 'react';
-import './Home.css';
+import { Checkbox, IconButton } from '@mui/material';
+import React, { useState } from 'react'
+import './Home.css'
 
-// Props passed into MedicineBlockItem component
-export function MedicineBlockItem({ medicine, _id, taken, updateMedicine }) {
-    const [isTaken, setIsTaken] = useState(taken);
+
+// Props passed into MedicineItem component from MedicineView.jsx
+export function TodayBlockItem({ medications=[], updateMedication, deleteMedication}) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [editedTask, setEditedTask] = useState(medications);
+    //const [editedFamilyMember, setEditedFamilyMember] = useState(familyMember);
+    //const [editedNeedByDate, setEditedNeedByDate] = useState(needByDate);
+
 
     function handleCheckboxToggle(event) {
-        const newTakenStatus = event.target.checked;
-        setIsTaken(newTakenStatus);
-        updateMedicine(_id, { ...medicine, taken: newTakenStatus });
+        const newCompletedStatus = event.target.checked;
+        updateMed(_id, {
+            med: editedTask,
+            //familyMember: editedFamilyMember,
+            //needByDate: editedNeedByDate,
+            completed: newCompletedStatus
+        });
     }
 
+    // If not editing, display the task like normal
     return (
-        <div className="single-task">
+         <div className='single-task'>
             <Checkbox
                 sx={{
                     color: 'white',
@@ -22,10 +32,10 @@ export function MedicineBlockItem({ medicine, _id, taken, updateMedicine }) {
                     },
                 }}
                 size="small"
-                checked={isTaken}
+                checked={completed}
                 onChange={handleCheckboxToggle}
             />
-            <div className="task-title">{medicine.name}</div>
+            <div className='task-title'>{task}</div>
         </div>
-    );
+    );     
 }

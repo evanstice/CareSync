@@ -2,14 +2,14 @@ import React from "react";
 import { MedicineBlockItem } from "./MedicineBlockItem";
 import "./Home.css";
 
-export default function MedicineBlockView({ medicines = [], updateMedicine }) {
-    console.log("Medicines array fetched from DB:", medicines);
+export default function MedicineBlockView({ medications = [], updateMedicine }) {
+    console.log("medications array fetched from DB:", medicines);
     return (
         <div className="medicine-block-view">
-            {medicines.map((medicine) => (
+            {medications.map((medicine) => (
                 <MedicineBlockItem
-                    {...medicine} // spreads all properties of medicine objects
-                    key={medicine._id}
+                    {...medications} // spreads all properties of medicine objects
+                    key={medications._id}
                     updateMedicine={updateMedicine}
                 />
             ))}
