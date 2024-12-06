@@ -127,3 +127,56 @@
     float: left;
     width: 30px;
 }
+/* new */
+
+.medicine-block-bg {
+    max-width: 35rem;
+    background-color: #99afbf;
+    border-radius: 20px;
+    margin: auto;
+    max-height: 35rem;
+    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.3));
+    padding: 1rem;
+  }
+  
+  .medicine-block-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+  }
+  
+  .medicine-block-view {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-y: auto;
+    max-height: 25rem;
+    padding: 0.5rem;
+  }
+  
+  .medicine-task {
+    display: flex;
+    align-items: center;
+    background-color: #a2b9c9;
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .medicine-task.completed {
+    background-color: #99d9a8;
+  }
+  
+  .medicine-task-title {
+    flex: 1;
+    font-size: 1rem;
+    color: white;
+  }
+  
+  .checkmark {
+    margin-left: auto;
+  }
+  
