@@ -55,14 +55,16 @@ export default function Medications({ medications, createMedication, updateMedic
                     </div>
                 Medication
                 </div>
-                <div className='medication-date-label'>
-                    Dose & Frequency
+                <div className='medication-dose-label'>
+                    Dose
+                </div>
+                <div className='medication-freq-label'>
+                    Frequency
                 </div>
                 <div className='medication-member-label'>
                     Assigned To
                 </div>
-                <div className='spacer'>
-                    
+                <div className='spacer-2'> 
                 </div>
             </div>
             <div className='medications-view-wrapper'>
