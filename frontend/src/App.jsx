@@ -20,7 +20,7 @@ function App() {
         <Route path="/settings" element={<FamilyPage />} />
         <Route path="/delete-account" element={<DeletePage />} />
         <Route path="/update-account" element={<UpdatePage />} />
-        <Route path="/medications" elment={<MedicationsPage />} />
+        <Route path="/medications" element={<MedicationsPage />} />
       </Routes>
     </Router>
   );
