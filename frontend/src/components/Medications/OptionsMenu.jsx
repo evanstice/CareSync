@@ -2,7 +2,7 @@ import { MdOutlineEdit, MdDeleteOutline } from "react-icons/md";
 import './Medications.css';
 
 // Pass onEdit and onDelete props to the OptionsMenu to handle when they're clicked
-export function OptionsMenu({ onEdit, deleteMedication }) {
+export function OptionsMenu({ onEdit, onDelete }) {
     return (
         <div className='options-box'>
             <div className='options-menu'>
@@ -10,7 +10,7 @@ export function OptionsMenu({ onEdit, deleteMedication }) {
                     <MdOutlineEdit className='edit-icon' />
                     <button className='edit-button'>Edit</button>
                 </div>
-                <div className='delete-bar' onClick={deleteMedication}>
+                <div className='delete-bar' onClick={onDelete}>
                     <MdDeleteOutline className='delete-icon' />
                     <button className='delete-button'>Delete</button>
                 </div>

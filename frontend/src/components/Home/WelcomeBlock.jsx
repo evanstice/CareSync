@@ -16,4 +16,3 @@ function WelcomeBlock() {
 }
 
 export default WelcomeBlock;
-    

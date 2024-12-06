@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 
-function ProgressBar({ progress }) {
+export default function ProgressBar({ progress }) {
   return (
     <div className="progress-bar-container">
       <div
@@ -11,5 +11,3 @@ function ProgressBar({ progress }) {
     </div>
   );
 }
-
-export default ProgressBar;

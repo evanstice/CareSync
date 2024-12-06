@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { MdOutlineToday } from "react-icons/md";
 import { format } from 'date-fns';
+import TodayBlockView from './TodayBlockView'
 import './Home.css';
-import TasksView from '../Tasks/TasksView';
 
-function TodayBlock() {
+export default function TodayBlock({tasks, createTask, updateTask, deleteTask}) {
     const [currentDate, setCurrentDate] = useState('');
 
     useEffect(() => {
@@ -13,22 +13,22 @@ function TodayBlock() {
         setCurrentDate(formattedDate);
     }, []); 
 
+    const [newTask, setNewTask] = useState("")
+
     return (
         <>
             <div className='today-block-bg'>
                 <div className='welcome-block-title'><div className='today-icon'><MdOutlineToday/></div>Today</div>
                 <div className='welcome-block-subtitle'>{currentDate}</div>
-                <TasksView
-                    // tasks={tasks}
-                    // updateTask={updateTask}
-                    // deleteTask={deleteTask}
-                    
-                    // needs to be implemented with database:
-                    // only tasks AND medications from today that are assingened to person logged in should show
+                <div className='today-view-wrapper'>
+                <TodayBlockView
+                    tasks={tasks}
+                    createTask={createTask}
+                    updateTask={updateTask}
+                    deleteTask={deleteTask}
                 />
+            </div>
             </div>
         </>
     );
 }
-
-export default TodayBlock;

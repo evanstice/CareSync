@@ -79,12 +79,12 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 
 .single-medication {
     border: 1px solid #e5e7eb;
-    font-size: 14px; 
+    font-size: 14px;
     padding: 0.25rem;
     border-radius: 0.75rem;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); 
-    display: flex;     
-    gap: 0.5rem;            
+    display: flex;
+    gap: 0.5rem;
     align-items: center;
     background-color: #a2b9c9;
 }
@@ -99,6 +99,7 @@ html, body {margin: 0; height: 100%; overflow: hidden}
 }
 
 .checkmark {
+    padding-left: 20px;
     float: left;
     width: 30px;
 }
@@ -134,32 +135,40 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     border: 1px solid #e5e7eb;
     align-items: center;
     justify-content: baseline;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .medication-title-label {
-    padding-left: 20px;
+    padding-left: 0px;
     color: white;
     text-align: left;
     white-space: nowrap;
+    align-items: center;
     width: 40%;
 }
 
-.medication-date-label {
+.medication-dose-label {
     color: white;
     text-align: left;
-    width: 20%;
-    padding-left: 35px;
+    width: 17%;
     white-space: nowrap;
-    flex: 1;
+    align-items: center;
+}
+.medication-freq-label {
+    color: white;
+    text-align: left;
+    width: 16%;
+    white-space: nowrap;
+    align-items: center;
 }
 
 .medication-member-label {
     color: white;
-    padding-left: 35px;
     text-align: left;
     white-space: nowrap;
-    width: 50%;
-    flex: 1;
+    width: 20%;
+    align-items: center;
 }
 
 .spacer {
@@ -167,13 +176,18 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     text-align: right;
 }
 
+.spacer-2 {
+    text-align: right;
+    flex: 1;
+}
+
 .options-item {
     display: flex;
   gap: 0.5rem;
   align-items: center;
-  border: 1px solid #e5e7eb; /* gray-200 */
-  border-radius: 0.375rem; /* rounded-md */
-  padding: 0.75rem; /* p-3 */
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem; 
+  padding: 0.75rem;
   user-select: none;
   cursor: pointer;
   z-index: 10;
@@ -266,4 +280,3 @@ html, body {margin: 0; height: 100%; overflow: hidden}
     width:100%;
     height:100%;
   }
-  
