@@ -113,7 +113,12 @@ export function MedicationItem({ medication, _id, dose, frequency, completed, fa
             <div className="family-member">{familyMember}</div>
             <div className="medication-options-button" style={{ position: 'relative' }}>
                 <IconButton onClick={toggleOptionsMenu}>
-                    <MoreVertIcon fontSize='small' />
+                    <MoreVertIcon sx={{
+                    color: 'white',
+                    '&.Mui-checked': {
+                        color: 'white',
+                    },
+                }} fontSize='small' />
                 </IconButton>
                 {isOpen && (
                     <div style={{ position: 'absolute', right: 0, top: '100%' }}>
