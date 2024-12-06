@@ -39,6 +39,9 @@
     .today-block-bg {
         max-height: 25rem;
     }
+    .today-block-view {
+        max-height: 16rem;
+    }
 }
 
 /* Text styling */
@@ -85,3 +88,42 @@
     padding-top: 7px;
     padding-right: 15px;
   }
+
+  .today-block-view {
+    padding-top: 15px;
+    margin-left: 0.75rem; 
+    margin-right: 0.75rem; 
+    height: 54vh;  
+    overflow: scroll;  
+    display: flex;   
+    flex-direction: column;
+    gap: 0.75rem;         
+    margin-top: 0.25rem;  
+    border-radius: 10px;
+}
+
+.single-task {
+    border: 1px solid #e5e7eb;
+    font-size: 14px; 
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); 
+    display: flex;     
+    gap: 0.5rem;            
+    align-items: center;
+    background-color: #a2b9c9;
+}
+
+.task-title {
+    text-align: left;
+    width: 40%;
+    color: white;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.checkmark {
+    float: left;
+    width: 30px;
+}
