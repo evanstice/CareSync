@@ -11,6 +11,7 @@ function NavBar() {
     const [sidebar, setSidebar] = useState(false)
     const handleLogout = () => {
         // Add your logout logic here (e.g., clearing user data or tokens)
+        // log out of token needed
       };
     const showSidebar = () => setSidebar(!sidebar)
 
